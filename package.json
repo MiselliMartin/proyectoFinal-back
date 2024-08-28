@@ -1,13 +1,21 @@
 {
   "name": "back",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "back proyecto final GlobalLearning",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "movies",
+    "partner",
+    "buddy",
+    "decision",
+    "date"
+  ],
+  "author": "Maru, Sol, Stefi, Martín",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "5.19.0",
