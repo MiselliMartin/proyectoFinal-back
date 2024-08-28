@@ -30,6 +30,6 @@
     "uuid": "10.0.0"
   },
   "devDependencies": {
-    "prisma": "^5.19.0"
+    "prisma": "5.19.0"
   }
 }
