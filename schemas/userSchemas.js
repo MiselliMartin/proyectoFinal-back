@@ -13,9 +13,7 @@ export const userLoginSchema = Joi.object({
   }),
 });
 
-import Joi from "joi";
-
-export const registerUserSchema = Joi.object({
+export const userRegisterSchema = Joi.object({
   body: Joi.object({
     username: Joi.string().min(3).required().messages({
       "string.min": "username debe tener mínimo 3 caracteres",
@@ -31,7 +29,24 @@ export const registerUserSchema = Joi.object({
     }),
     age: Joi.number().integer().min(18).optional().messages({
       "number.base": "age debe ser un número",
-      "number.min": "Debes tener al menos 18 años",
+      //Sorry saqué el mínimo de 18
+    }),
+  }),
+});
+
+export const userUpdateSchema = Joi.object({
+  body: Joi.object({
+    username: Joi.string().min(3).optional().messages({
+      "string.min": "username debe tener mínimo 3 caracteres",
+    }),
+    email: Joi.string().email().optional().messages({
+      "string.email": "email debe ser un correo válido",
+    }),
+    password: Joi.string().min(6).optional().messages({
+      "string.min": "password debe tener mínimo 6 caracteres",
+    }),
+    age: Joi.number().integer().min(18).optional().messages({
+      "number.base": "age debe ser un número",
     }),
   }),
 });

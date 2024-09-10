@@ -85,7 +85,7 @@ export const userController = () => {
     res.status(200).json({ message: "Logged out." });
   };
 
-  const updateById = async (req, res, next) => {
+  const update = async (req, res, next) => {
     const id = req.tokenId;
 
     const updateUser = req.body;
@@ -179,7 +179,7 @@ export const userController = () => {
     register,
     login,
     logout,
-    updateById,
+    update,
     deleteById,
     profile,
     verify,
