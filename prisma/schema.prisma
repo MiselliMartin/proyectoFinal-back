@@ -32,10 +32,11 @@ model User {
 model Group {
   id           Int          @id @default(autoincrement())
   name         String       @db.VarChar(80)
-  plannedDate  Date
+  plannedDate  DateTime
   createdAt    DateTime     @default(now()) @map("created_at")
   updatedAt    DateTime     @updatedAt @map("updated_at")
   users        UserInGroup[]
+  roomDecision RoomDecision[]
   
   @@map("groups")
 }
@@ -63,6 +64,7 @@ model Movie {
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
   usersLiked       UsersLikedMovies[]
+  roomDecisions    RoomDecision[]
 
   @@map("movies")
 }
@@ -75,6 +77,7 @@ model Meal {
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
   usersLiked       UsersLikedMeals[]
+  roomDecisions    RoomDecision[]
 
   @@map("meals")
 }
@@ -88,6 +91,7 @@ model Place {
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
   usersLiked       UsersLikedPlaces[]
+  roomDecisions    RoomDecision[]
 
   @@map("places")
 }
@@ -127,4 +131,21 @@ model UsersLikedPlaces {
   
   @@unique([placeId, userId])
   @@map("users_liked_places")
+}
+
+model RoomDecision {
+  id        Int      @id @default(autoincrement())
+  group     Group    @relation(fields: [groupId], references: [id])
+  groupId   Int      @unique
+  movie     Movie?    @relation(fields: [movieId], references: [id])
+  movieId   Int?
+  meal      Meal?     @relation(fields: [mealId], references: [id])
+  mealId    Int?
+  place     Place?    @relation(fields: [placeId], references: [id])
+  placeId   Int?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("room_decisions")
 }
