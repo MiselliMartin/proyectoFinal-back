@@ -24,8 +24,33 @@ model User {
   likedMovies   UsersLikedMovies[]
   likedMeals    UsersLikedMeals[]
   likedPlaces   UsersLikedPlaces[]
+  group         UserInGroup[]
 
   @@map("users")
+}
+
+model Group {
+  id           Int          @id @default(autoincrement())
+  name         String       @db.VarChar(80)
+  plannedDate  Date
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+  users        UserInGroup[]
+  
+  @@map("groups")
+}
+
+//relación explícita muchos a muchos: usuarios y grupos
+model UserInGroup {
+  userId        Int
+  user          User     @relation(fields:[userId], references: [id])
+  groupId       Int
+  group         Group    @relation(fields: [groupId], references:[id])
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  
+  @@unique([userId, groupId])
+  @@map("users_in_group")
 }
 
 model Movie {
