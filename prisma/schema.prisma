@@ -134,7 +134,6 @@ model UsersLikedPlaces {
 }
 
 model RoomDecision {
-  id        Int      @id @default(autoincrement())
   group     Group    @relation(fields: [groupId], references: [id])
   groupId   Int      @unique
   movie     Movie?    @relation(fields: [movieId], references: [id])
