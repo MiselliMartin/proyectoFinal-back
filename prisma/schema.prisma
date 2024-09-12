@@ -24,34 +24,34 @@ model User {
   likedMovies   UsersLikedMovies[]
   likedMeals    UsersLikedMeals[]
   likedPlaces   UsersLikedPlaces[]
-  group         UserInGroup[]
+  event         UserInEvent[]
 
   @@map("users")
 }
 
-model Group {
+model Event {
   id           Int          @id @default(autoincrement())
   name         String       @db.VarChar(80)
   plannedDate  DateTime
   createdAt    DateTime     @default(now()) @map("created_at")
   updatedAt    DateTime     @updatedAt @map("updated_at")
-  users        UserInGroup[]
+  users        UserInEvent[]
   roomDecision RoomDecision[]
   
-  @@map("groups")
+  @@map("events")
 }
 
-//relación explícita muchos a muchos: usuarios y grupos
-model UserInGroup {
+//relación explícita muchos a muchos: usuarios y eventos
+model UserInEvent {
   userId        Int
   user          User     @relation(fields:[userId], references: [id])
-  groupId       Int
-  group         Group    @relation(fields: [groupId], references:[id])
+  eventId       Int
+  event         Event    @relation(fields: [eventId], references:[id])
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
   
-  @@unique([userId, groupId])
-  @@map("users_in_group")
+  @@unique([userId, eventId])
+  @@map("users_in_event")
 }
 
 model Movie {
@@ -134,8 +134,8 @@ model UsersLikedPlaces {
 }
 
 model RoomDecision {
-  group     Group    @relation(fields: [groupId], references: [id])
-  groupId   Int      @unique
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   Int      @unique
   movie     Movie?    @relation(fields: [movieId], references: [id])
   movieId   Int?
   meal      Meal?     @relation(fields: [mealId], references: [id])
