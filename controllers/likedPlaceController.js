@@ -1,14 +1,25 @@
+import { Prisma } from "@prisma/client"
+import HTTP_STATUS from "../helpers/httpStatus"
+
 export const likedPlaceController = () => {
     const markAsLiked = async (request, response, next) => {
         const { body } = request
-        const placeId = Number(body.placeId)
-        const userId = Number(body.userId)
+        const placeId = Number(body?.placeId ?? null)
+        const userId = Number(body?.userId ?? null)
 
         try {
-            const likedPlace = await likedPlace.create({ placeId, userId })
-            response.status(201).json({ data: likedPlace, success: true, message: 'Place liked' })
+            const likedPlace = await Prisma.UsersLikedPlaces.create({
+                data: {
+                    placeId,
+                    userId
+                }
+            })
+
+            return response.status(HTTP_STATUS.CREATED).json(likedPlace)
         } catch (error) {
             next(error)
+        } finally {
+            await Prisma.$disconnect()
         }
     }
 
@@ -16,10 +27,31 @@ export const likedPlaceController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const likedPlaces = await likedPlace.findMany({ userId })
-            response.status(200).json({ data: likedPlaces, success: true, message: 'Liked places found' })
+            const likedPlaces = await Prisma.UsersLikedPlaces.findMany({
+                where: {
+                    userId
+                },
+                select: {
+                    placeId: true,
+                    userId: true,
+                    place: {
+                        select: {
+                            title: true
+                        }
+                    }
+                },
+                user: {
+                    select: {
+                        username: true,
+                        email: true
+                    }
+                }
+            })
+            return response.status(HTTP_STATUS.OK).json(likedPlaces)
         } catch (error) {
             next(error)
+        } finally {
+            await Prisma.$disconnect
         }
     }
 
