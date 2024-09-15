@@ -145,6 +145,7 @@ export const userController = () => {
   const verify = async (req, res, next) => {
     try {
       const token = req.cookies.token;
+
       if (!token) {
         return res
           .status(httpStatus.UNAUTHORIZED)
@@ -152,6 +153,13 @@ export const userController = () => {
       }
 
       const decoded = verifyToken(token);
+
+      if (!decoded) {
+        return res
+          .status(httpStatus.UNAUTHORIZED)
+          .json({ message: "Invalid token" });
+      }
+
       const user = await prisma.user.findUnique({ where: { id: decoded.id } });
 
       if (!user) {

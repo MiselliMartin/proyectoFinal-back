@@ -1,83 +1,121 @@
-export const movieController = () => {
-  const movies = [
-    { id: 1, title: "The Shawshank Redemption", genre: "Drama" },
-    { id: 2, title: "The Godfather", genre: "Crime" },
-    { id: 3, title: "The Dark Knight", genre: "Action" },
-    { id: 4, title: "Pulp Fiction", genre: "Crime" },
-    { id: 5, title: "Forrest Gump", genre: "Drama" },
-    { id: 6, title: "Inception", genre: "Sci-Fi" },
-    { id: 7, title: "The Matrix", genre: "Sci-Fi" },
-    { id: 8, title: "Fight Club", genre: "Drama" },
-    { id: 9, title: "Interstellar", genre: "Sci-Fi" },
-    { id: 10, title: "Parasite", genre: "Thriller" },
-  ];
-  const getMovies = async (request, response, next) => {
-    const { query } = request;
-    try {
-      response
-        .status(200)
-        .json({ success: true, message: "Movies found", data: movies });
-    } catch (error) {
-      next(error);
-    }
-  };
+import httpStatus from '../helpers/httpStatus.js'
+import { PrismaClient } from '@prisma/client'
 
-  const createMovie = async (request, response, next) => {
-    const newMovie = request.body;
+const prisma = new PrismaClient()
+
+
+export const movieController = (movies) => {
+  const getMovies = async (request, response, next) => {
+    const { query } = request
+
     try {
-      response
-        .status(201)
-        .json({ data: newMovie, success: true, message: "Movie created" });
+      const movies = await prisma.movie.findMany({
+        where: {
+          title: {
+            contains: query?.title ?? ''
+          }
+        }
+      })
+
+      return response.status(httpStatus.OK).json(movies)
     } catch (error) {
-      next(error);
+      next(error)
+    } finally {
+      await prisma.$disconnect()
     }
-  };
+  }
 
   const getMovieById = async (request, response, next) => {
-    const { id } = request.params;
-    const movieId = Number(id);
+    const { id } = request.params
+    const movieId = Number(id)
+
     try {
-      const movie = await movie.findById(movieId);
-      response
-        .status(200)
-        .json({ data: movie, success: true, message: "Movie found" });
+      const movie = await prisma.movie.findUnique({
+        where: {
+          id: movieId
+        }
+      })
+      const responseFormat = {
+        data: movie,
+      }
+      return response.status(httpStatus.OK).json(responseFormat)
+
     } catch (error) {
-      next(error);
+      next(error)
+    } finally {
+      await prisma.$disconnect()
     }
-  };
+  }
+
+  const createMovie = async (request, response, next) => {
+    const newMovie = request.body
+
+    try {
+      const createdMovie = await prisma.movie.create({
+        data: newMovie
+      })
+
+      const responseFormat = {
+        data: createdMovie,
+        message: 'Movie created successfully'
+      }
+
+      return response.status(httpStatus.CREATED).json(responseFormat)
+    } catch (error) {
+      next(error)
+    } finally {
+      await prisma.$disconnect()
+    }
+  }
 
   const deleteMovieById = async (request, response, next) => {
-    const { id } = request.params;
-    const movieId = Number(id);
+    const { id } = request.params
+    const movieId = Number(id)
+
     try {
-      const movie = await movie.findByIdAndDelete(movieId);
-      response
-        .status(200)
-        .json({ data: movie, success: true, message: "Movie deleted" });
+      const movie = await prisma.movie.delete({
+        where: {
+          id: movieId
+        }
+      })
+      const responseFormat = {
+        data: movie,
+        message: 'Movie deleted successfully'
+      }
+      return response.status(httpStatus.OK).json(responseFormat)
+
     } catch (error) {
-      next(error);
+      next(error)
+    } finally {
+      await prisma.$disconnect()
     }
-  };
+  }
 
   const updateMovieById = async (request, response, next) => {
-    const { id } = request.params;
-    const movieId = Number(id);
-    const newMovie = request.body;
+    const { id } = request.params
+    const movieId = Number(id)
+    const newMovieData = request.body
     try {
-      const movie = await movie.findByIdAndUpdate(movieId, newMovie);
-      response
-        .status(200)
-        .json({ data: movie, success: true, message: "Movie updated" });
+      const movie = await prisma.movie.update({
+        where: {
+          id: movieId
+        },
+        data: newMovieData
+      })
+
+      return response.status(httpStatus.OK).json(movie)
     } catch (error) {
-      next(error);
+      next(error)
+    } finally {
+      await prisma.$disconnect()
     }
-  };
+  }
 
   return {
     getMovies,
-    createMovie,
     getMovieById,
+    createMovie,
     deleteMovieById,
-    updateMovieById,
-  };
-};
+    updateMovieById
+  }
+}
