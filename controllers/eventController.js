@@ -5,11 +5,12 @@ const prisma = new PrismaClient();
 
 export const eventController = () => {
     const createEvent = async (req, res, next) => {
-        const { name, plannedDate, userId } = req.body;
+        const { name, password, plannedDate, userId } = req.body;
         try {
             const newEvent = await prisma.event.create({
                 data: {
                     name,
+                    password,
                     plannedDate: new Date(plannedDate),
                     users: {
                         create: {
@@ -34,6 +35,59 @@ export const eventController = () => {
             await prisma.$disconnect();
         }
     };
+
+
+    const joinEvent = async (req, res, next) => {
+        const { eventId, name, password, userId  } = req.body;
+      
+        try {
+          // Buscar el evento por ID
+          const event = await prisma.event.findUnique({
+            where: {
+              id: parseInt(eventId),
+            },
+            include: {
+              users: true,
+            },
+          });
+      
+          if (!event) {
+            return res.status(404).json({
+              message: "Event not found. Please check the event ID.",
+            });
+          }
+      
+          // Verificar la contraseña del evento
+          if (event.password !== password) {
+            return res.status(401).json({
+              message: "Incorrect password.",
+            });
+          }
+      
+          // Unir al usuario al evento
+          await prisma.userInEvent.create({
+            data: {
+              userId: user.id,
+              eventId: event.id,
+            },
+          });
+      
+          const responseFormat = {
+            data: event,
+            message: "Joined event successfully",
+          };
+      
+          return res.status(200).json(responseFormat);
+        } catch (error) {
+          next(error);
+        } finally {
+          await prisma.$disconnect();
+        }
+      };
+      
+      
+      
+
 
     const getEventById = async (req, res, next) => {
         const { id } = req.params;
@@ -187,6 +241,7 @@ export const eventController = () => {
 
     return {
         createEvent,
+        joinEvent,
         getEventById,
         updateEvent,
         deleteEvent,
