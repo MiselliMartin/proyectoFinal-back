@@ -65,7 +65,7 @@ export const userController = () => {
       });
 
       const responseFormat = {
-        data: createdUser,
+        data: user,
         token,
         message: "Successfully login",
       };
@@ -125,7 +125,7 @@ export const userController = () => {
   };
 
   const profile = async (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.query;
     try {
       const user = await prisma.user.findUnique({ where: { id } });
 
