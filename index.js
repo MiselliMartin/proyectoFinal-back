@@ -17,7 +17,10 @@ const SERVER_PORT = process.env.SERVER_PORT || 3001;
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: 'GET, POST, PUT, DELETE',
+}))
 
 //en caso de que querramos usar las cookies - se verá
 app.use(cookieParser());
