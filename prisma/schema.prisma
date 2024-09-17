@@ -21,6 +21,9 @@ model User {
   likedMeals  UsersLikedMeals[]
   likedMovies UsersLikedMovies[]
   likedPlaces UsersLikedPlaces[]
+  dislikedMeals  UsersDislikedMeals[]
+  dislikedMovies UsersDislikedMovies[]
+  dislikedPlaces UsersDislikedPlaces[]
 
   @@map("users")
 }
@@ -61,6 +64,7 @@ model Movie {
   urlImage        String?            @db.VarChar(255)
   event_decisions event_decisions[]
   usersLiked      UsersLikedMovies[]
+  usersDisliked   UsersDislikedMovies[]
 
   @@map("movies")
 }
@@ -74,6 +78,7 @@ model Meal {
   urlImage        String?           @db.VarChar(255)
   event_decisions event_decisions[]
   usersLiked      UsersLikedMeals[]
+  usersdisiked    UsersDislikedMeals[]
 
   @@map("meals")
 }
@@ -88,6 +93,7 @@ model Place {
   urlImage        String?            @db.VarChar(255)
   event_decisions event_decisions[]
   usersLiked      UsersLikedPlaces[]
+  usersDisliked   UsersDislikedPlaces[]
 
   @@map("places")
 }
@@ -126,6 +132,42 @@ model UsersLikedPlaces {
 
   @@unique([placeId, userId])
   @@map("users_liked_places")
+}
+
+model UsersDislikedMovies {
+  movieId   Int
+  userId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([movieId, userId])
+  @@map("users_disliked_movies")
+}
+
+model UsersDislikedMeals {
+  mealId    Int
+  userId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  meal      Meal     @relation(fields: [mealId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([mealId, userId])
+  @@map("users_disliked_meals")
+}
+
+model UsersDislikedPlaces {
+  placeId   Int
+  userId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  place     Place    @relation(fields: [placeId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([placeId, userId])
+  @@map("users_disliked_places")
 }
 
 model event_decisions {
