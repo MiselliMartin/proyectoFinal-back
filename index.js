@@ -8,6 +8,7 @@ import userRouter from "./routes/userRouter.js";
 import movieRouter from "./routes/movieRouter.js";
 import mealRouter from "./routes/mealRouter.js";
 import placeRouter from "./routes/placeRouter.js";
+import eventRouter from "./routes/eventRouter.js";
 
 //Variables .env
 dotenv.config();
@@ -21,7 +22,7 @@ app.use(cors());
 //en caso de que querramos usar las cookies - se verá
 app.use(cookieParser());
 
-app.use("/api", userRouter, movieRouter, mealRouter, placeRouter);
+app.use("/api", userRouter, eventRouter, movieRouter, mealRouter, placeRouter);
 
 //middleware después de los endpoints, por ende en el catch{next(err)} == el error pasa y entra a errorHandler
 //esto lo había subido gabi a github

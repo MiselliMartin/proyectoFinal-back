@@ -1,21 +1,21 @@
 import { Prisma } from "@prisma/client"
 import HTTP_STATUS from "../helpers/httpStatus"
 
-export const likedMealController = () => {
-    const markAsLiked = async (request, response, next) => {
+export const dislikedPlaceController = () => {
+    const markAsDisliked = async (request, response, next) => {
         const { body } = request
-        const mealId = Number(body?.mealId ?? null)
+        const placeId = Number(body?.placeId ?? null)
         const userId = Number(body?.userId ?? null)
 
         try {
-            const likedMeal = await Prisma.UsersLikedMeals.create({
+            const dislikedPlace = await Prisma.UsersDislikedPlaces.create({
                 data: {
-                    mealId,
+                    placeId,
                     userId
                 }
             })
 
-            return response.status(HTTP_STATUS.CREATED).json(likedMeal)
+            return response.status(HTTP_STATUS.CREATED).json(dislikedPlace)
         } catch (error) {
             next(error)
         } finally {
@@ -23,20 +23,20 @@ export const likedMealController = () => {
         }
     }
 
-    const getLikedMeals = async (request, response, next) => {
+    const getDislikedPlaces = async (request, response, next) => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const likedMeals = await Prisma.UsersLikedMeals.findMany({
+            const dislikedPlaces = await Prisma.UsersDislikedPlaces.findMany({
                 where: {
                     userId
                 },
                 select: {
-                    mealId: true,
+                    placeId: true,
                     userId: true,
-                    meal: {
+                    place: {
                         select: {
-                            name: true
+                            title: true
                         }
                     }
                 },
@@ -47,7 +47,7 @@ export const likedMealController = () => {
                     }
                 }
             })
-            return response.status(HTTP_STATUS.OK).json(likedMeals)
+            return response.status(HTTP_STATUS.OK).json(dislikedPlaces)
         } catch (error) {
             next(error)
         } finally {
@@ -56,7 +56,7 @@ export const likedMealController = () => {
     }
 
     return {
-        markAsLiked,
-        getLikedMeals
+        markAsDisliked,
+        getDislikedPlaces
     }
 }
