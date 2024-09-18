@@ -5,7 +5,7 @@ export const likedMovieController = () => {
     const markAsLiked = async (request, response, next) => {
         const { body } = request
         const movieId = Number(body?.movieId ?? null)
-        const userId = Number(body?.userId ?? null)
+        const userId = req.tokenId;
 
         try {
             const likedMovie = await Prisma.UsersLikedMovies.create({

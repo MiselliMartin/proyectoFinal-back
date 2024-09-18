@@ -4,7 +4,7 @@ import { dislikedMealController } from '../controllers/dislikedMealController.js
 const dislikedMealRouter = Router()
 const { markAsDisliked, getDislikedMeals } = dislikedMealController()
 
-dislikedMealRouter.route('/dislikedMeals')
+dislikedMealRouter.route('/meals/disliked')
     .post(markAsDisliked)
     .get(getDislikedMeals)
 

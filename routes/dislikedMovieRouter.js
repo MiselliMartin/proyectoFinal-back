@@ -4,7 +4,7 @@ import { dislikedMovieController } from '../controllers/dislikedMovieController.
 const dislikedMovieRouter = Router()
 const { markAsDisliked, getDislikedMovies } = dislikedMovieController()
 
-dislikedMovieRouter.route('/dislikedMovies')
+dislikedMovieRouter.route('/movies/disliked')
     .post(markAsDisliked)
     .get(getDislikedMovies)
 

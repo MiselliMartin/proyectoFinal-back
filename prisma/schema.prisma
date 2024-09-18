@@ -53,57 +53,12 @@ model UserInEvent {
   @@map("users_in_event")
 }
 
-model Movie {
-  id              Int                @id @default(autoincrement())
-  title           String             @db.VarChar(80)
-  description     String?
-  duration        Int?
-  genre           String             @db.VarChar(50)
-  createdAt       DateTime           @default(now()) @map("created_at")
-  updatedAt       DateTime           @updatedAt @map("updated_at")
-  urlImage        String?            @db.VarChar(255)
-  event_decisions event_decisions[]
-  usersLiked      UsersLikedMovies[]
-  usersDisliked   UsersDislikedMovies[]
-
-  @@map("movies")
-}
-
-model Meal {
-  id              Int               @id @default(autoincrement())
-  name            String            @db.VarChar(80)
-  description     String?
-  createdAt       DateTime          @default(now()) @map("created_at")
-  updatedAt       DateTime          @updatedAt @map("updated_at")
-  urlImage        String?           @db.VarChar(255)
-  event_decisions event_decisions[]
-  usersLiked      UsersLikedMeals[]
-  usersdisiked    UsersDislikedMeals[]
-
-  @@map("meals")
-}
-
-model Place {
-  id              Int                @id @default(autoincrement())
-  title           String             @db.VarChar(80)
-  location        String?
-  rating          Int?
-  createdAt       DateTime           @default(now()) @map("created_at")
-  updatedAt       DateTime           @updatedAt @map("updated_at")
-  urlImage        String?            @db.VarChar(255)
-  event_decisions event_decisions[]
-  usersLiked      UsersLikedPlaces[]
-  usersDisliked   UsersDislikedPlaces[]
-
-  @@map("places")
-}
 
 model UsersLikedMovies {
   movieId   Int
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  movie     Movie    @relation(fields: [movieId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([movieId, userId])
@@ -115,7 +70,6 @@ model UsersLikedMeals {
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  meal      Meal     @relation(fields: [mealId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([mealId, userId])
@@ -127,7 +81,6 @@ model UsersLikedPlaces {
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  place     Place    @relation(fields: [placeId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([placeId, userId])
@@ -139,7 +92,6 @@ model UsersDislikedMovies {
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  movie     Movie    @relation(fields: [movieId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([movieId, userId])
@@ -151,7 +103,6 @@ model UsersDislikedMeals {
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  meal      Meal     @relation(fields: [mealId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([mealId, userId])
@@ -163,7 +114,6 @@ model UsersDislikedPlaces {
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  place     Place    @relation(fields: [placeId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([placeId, userId])
@@ -179,7 +129,4 @@ model event_decisions {
   created_at DateTime @default(now())
   updated_at DateTime
   events     Event    @relation(fields: [eventId], references: [id])
-  meals      Meal?    @relation(fields: [mealId], references: [id])
-  movies     Movie?   @relation(fields: [movieId], references: [id])
-  places     Place?   @relation(fields: [placeId], references: [id])
 }

@@ -7,7 +7,7 @@ const { createEvent, getEventById, joinEvent, updateEvent, deleteEvent, listEven
 
 eventRouter.route('/events')
     .get(listEvents)
-    .post(createEvent)
+    .post(validateToken, createEvent)
 eventRouter.route('/events/joinevent/')
 .post(joinEvent)
 

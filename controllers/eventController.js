@@ -1,6 +1,5 @@
 import httpStatus from "../helpers/httpStatus.js";
 import { PrismaClient } from "@prisma/client";
-import { generateToken, verifyToken } from "../utils/jwt.service.js";
 
 const prisma = new PrismaClient();
 
