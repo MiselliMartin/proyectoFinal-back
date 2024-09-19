@@ -1,5 +1,7 @@
-import { Prisma } from "@prisma/client"
-import HTTP_STATUS from "../helpers/httpStatus"
+import { PrismaClient } from "@prisma/client";
+import HTTP_STATUS from "../helpers/httpStatus.js"
+
+const prisma = new PrismaClient();
 
 export const likedPlaceController = () => {
     const markAsLiked = async (request, response, next) => {
@@ -8,7 +10,7 @@ export const likedPlaceController = () => {
         const userId = Number(body?.userId ?? null)
 
         try {
-            const likedPlace = await Prisma.UsersLikedPlaces.create({
+            const likedPlace = await prisma.usersLikedPlaces.create({
                 data: {
                     placeId,
                     userId
@@ -19,7 +21,7 @@ export const likedPlaceController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect()
+            await prisma.$disconnect()
         }
     }
 
@@ -27,7 +29,7 @@ export const likedPlaceController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const likedPlaces = await Prisma.UsersLikedPlaces.findMany({
+            const likedPlaces = await prisma.usersLikedPlaces.findMany({
                 where: {
                     userId
                 },
@@ -51,7 +53,7 @@ export const likedPlaceController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect
+            await prisma.$disconnect
         }
     }
 

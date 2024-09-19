@@ -4,7 +4,7 @@ import { likedPlaceController } from '../controllers/likedPlaceController.js'
 const likedPlaceRouter = Router()
 const { markAsLiked, getLikedPlaces } = likedPlaceController()
 
-likedPlaceRouter.route('/likedPlaces')
+likedPlaceRouter.route('/places/liked')
     .post(markAsLiked)
     .get(getLikedPlaces)
 

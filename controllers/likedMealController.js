@@ -1,5 +1,7 @@
-import { Prisma } from "@prisma/client"
-import HTTP_STATUS from "../helpers/httpStatus"
+import { PrismaClient } from "@prisma/client";
+import HTTP_STATUS from "../helpers/httpStatus.js"
+
+const prisma = new PrismaClient();
 
 export const likedMealController = () => {
     const markAsLiked = async (request, response, next) => {
@@ -8,7 +10,7 @@ export const likedMealController = () => {
         const userId = Number(body?.userId ?? null)
 
         try {
-            const likedMeal = await Prisma.UsersLikedMeals.create({
+            const likedMeal = await prisma.UsersLikedMeals.create({
                 data: {
                     mealId,
                     userId
@@ -19,7 +21,7 @@ export const likedMealController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect()
+            await prisma.$disconnect()
         }
     }
 
@@ -27,7 +29,7 @@ export const likedMealController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const likedMeals = await Prisma.UsersLikedMeals.findMany({
+            const likedMeals = await prisma.UsersLikedMeals.findMany({
                 where: {
                     userId
                 },
@@ -51,7 +53,7 @@ export const likedMealController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect
+            await prisma.$disconnect
         }
     }
 
