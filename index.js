@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-// import { expressjwt as ejwt } from 'express-jwt'
+import { expressjwt as ejwt } from 'express-jwt'
 import errorHandler from "./middlewares/errorHandler.js";
 import userRouter from "./routes/userRouter.js";
 import eventRouter from "./routes/eventRouter.js";
@@ -27,6 +27,13 @@ app.use(cors({
 
 //en caso de que querramos usar las cookies - se verá
 app.use(cookieParser());
+
+app.use(ejwt({
+  secret: process.env.SECRET_KEY,
+  algorithms: ['HS256'],
+}).unless({
+  path: ['/api/login', '/api/register', '/api/refresh-token'],
+}))
 
 app.use("/api", userRouter, eventRouter, likedMovieRouter, dislikedMovieRouter, likedMealRouter, dislikedMealRouter, likedPlaceRouter, dislikedPlaceRouter);
 

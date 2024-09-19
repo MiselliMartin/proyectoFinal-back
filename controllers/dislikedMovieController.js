@@ -53,7 +53,7 @@ export const dislikedMovieController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await prisma.$disconnect
+            await prisma.$disconnect();
         }
     }
 
