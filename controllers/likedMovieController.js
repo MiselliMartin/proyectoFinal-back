@@ -34,11 +34,11 @@ export const likedMovieController = () => {
                 select: {
                     movieId: true,
                     userId: true,
-                    movie: {
-                        select: {
-                            title: true
-                        }
-                    }
+                    // movie: {
+                    //     select: {
+                    //         title: true   //*fetch movie data from api*/
+                    //     }
+                    // }
                 },
                 user: {
                     select: {
