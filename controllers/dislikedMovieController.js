@@ -1,5 +1,7 @@
-import { Prisma } from "@prisma/client"
-import HTTP_STATUS from "../helpers/httpStatus"
+import { PrismaClient } from "@prisma/client";
+import HTTP_STATUS from "../helpers/httpStatus.js"
+
+const prisma = new PrismaClient();
 
 export const dislikedMovieController = () => {
     const markAsDisliked = async (request, response, next) => {
@@ -8,7 +10,7 @@ export const dislikedMovieController = () => {
         const userId = Number(body?.userId ?? null)
 
         try {
-            const dislikedMovie = await Prisma.UsersDislikedMovies.create({
+            const dislikedMovie = await prisma.UsersDislikedMovies.create({
                 data: {
                     movieId,
                     userId
@@ -19,7 +21,7 @@ export const dislikedMovieController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect()
+            await prisma.$disconnect()
         }
     }
 
@@ -27,7 +29,7 @@ export const dislikedMovieController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const dislikedMovies = await Prisma.UsersDislikedMovies.findMany({
+            const dislikedMovies = await prisma.UsersDislikedMovies.findMany({
                 where: {
                     userId
                 },
@@ -51,7 +53,7 @@ export const dislikedMovieController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect
+            await prisma.$disconnect
         }
     }
 

@@ -5,10 +5,13 @@ import cookieParser from "cookie-parser";
 // import { expressjwt as ejwt } from 'express-jwt'
 import errorHandler from "./middlewares/errorHandler.js";
 import userRouter from "./routes/userRouter.js";
-import movieRouter from "./routes/movieRouter.js";
-import mealRouter from "./routes/mealRouter.js";
-import placeRouter from "./routes/placeRouter.js";
 import eventRouter from "./routes/eventRouter.js";
+import likedMovieRouter from "./routes/likedMovieRouter.js";
+import dislikedMovieRouter from "./routes/dislikedMovieRouter.js";
+import likedMealRouter from "./routes/likedMealRouter.js";
+import dislikedMealRouter from "./routes/dislikedMealRouter.js";
+import likedPlaceRouter from "./routes/likedPlaceRouter.js";  
+import dislikedPlaceRouter from "./routes/dislikedPlaceRouter.js";  
 
 //Variables .env
 dotenv.config();
@@ -25,7 +28,7 @@ app.use(cors({
 //en caso de que querramos usar las cookies - se verá
 app.use(cookieParser());
 
-app.use("/api", userRouter, eventRouter, movieRouter, mealRouter, placeRouter);
+app.use("/api", userRouter, eventRouter, likedMovieRouter, dislikedMovieRouter, likedMealRouter, dislikedMealRouter, likedPlaceRouter, dislikedPlaceRouter);
 
 //middleware después de los endpoints, por ende en el catch{next(err)} == el error pasa y entra a errorHandler
 //esto lo había subido gabi a github

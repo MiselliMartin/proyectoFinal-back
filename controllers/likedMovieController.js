@@ -1,41 +1,35 @@
-import { Prisma } from "@prisma/client"
-import HTTP_STATUS from "../helpers/httpStatus"
+import { PrismaClient } from "@prisma/client";
+import HTTP_STATUS from "../helpers/httpStatus.js"
+
+const prisma = new PrismaClient();
 
 export const likedMovieController = () => {
     const markAsLiked = async (request, response, next) => {
-        const { movieId, movieTitle, movieImage } = request.body
-        const userId = req.tokenId;
+        // const { movieId, userId } = request.body //*fetch movie data from api findUnique{id}*/
+        // const userId = req.tokenId;    
+    const { body } = request
+    const userId = Number(body?.userId ?? null)
+    const movieId = Number(body?.movieId ?? null)
+
 
         try {
-            // First, check if the movie exists in our Movies table
-            const movie = await Prisma.movie.findUnique({
-                where: { id: movieId }
-            })
 
-            // If the movie doesn't exist in our database, create it
-            if (!movie) {
-                movie = await Prisma.movie.create({
-                    data: {
-                        id: movieId,
-                        title: movieTitle,
-                    }
-                })
-            }
 
             // Now, create the like record
-            const likedMovie = await Prisma.usersLikedMovies.create({
+            const likedMovie = await prisma.usersLikedMovies.create({
                 data: {
                     userId,
-                    movieId: movie.id // Use the internal ID of the movie
+                    movieId // Use the internal ID of the movie
                 }
             })
+            // console.log(userId)
 
 
             return response.status(HTTP_STATUS.CREATED).json(likedMovie)
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect()
+            await prisma.$disconnect()
         }
     }
 
@@ -43,7 +37,7 @@ export const likedMovieController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const likedMovies = await Prisma.UsersLikedMovies.findMany({
+            const likedMovies = await prisma.usersLikedMovies.findMany({
                 where: {
                     userId
                 },
@@ -67,7 +61,7 @@ export const likedMovieController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await Prisma.$disconnect
+            await prisma.$disconnect
         }
     }
 
