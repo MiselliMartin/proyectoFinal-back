@@ -3,17 +3,33 @@ import HTTP_STATUS from "../helpers/httpStatus"
 
 export const likedMovieController = () => {
     const markAsLiked = async (request, response, next) => {
-        const { body } = request
-        const movieId = Number(body?.movieId ?? null)
+        const { movieId, movieTitle, movieImage } = request.body
         const userId = req.tokenId;
 
         try {
-            const likedMovie = await Prisma.UsersLikedMovies.create({
+            // First, check if the movie exists in our Movies table
+            const movie = await Prisma.movie.findUnique({
+                where: { id: movieId }
+            })
+
+            // If the movie doesn't exist in our database, create it
+            if (!movie) {
+                movie = await Prisma.movie.create({
+                    data: {
+                        id: movieId,
+                        title: movieTitle,
+                    }
+                })
+            }
+
+            // Now, create the like record
+            const likedMovie = await Prisma.usersLikedMovies.create({
                 data: {
-                    movieId,
-                    userId
+                    userId,
+                    movieId: movie.id // Use the internal ID of the movie
                 }
             })
+
 
             return response.status(HTTP_STATUS.CREATED).json(likedMovie)
         } catch (error) {
