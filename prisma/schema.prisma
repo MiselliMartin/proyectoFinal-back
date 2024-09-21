@@ -8,19 +8,20 @@ datasource db {
 }
 
 model User {
-  id          Int                @id @default(autoincrement())
-  username    String             @unique
-  email       String             @unique
-  password    String
-  createdAt   DateTime           @default(now()) @map("created_at")
-  updatedAt   DateTime           @updatedAt @map("updated_at")
-  birthDate   DateTime
-  firstName   String
-  lastName    String
-  event       UserInEvent[]
-  likedMeals  UsersLikedMeals[]
-  likedMovies UsersLikedMovies[]
-  likedPlaces UsersLikedPlaces[]
+  id             Int                   @id @default(autoincrement())
+  username       String                @unique
+  email          String                @unique
+  password       String
+  createdAt      DateTime              @default(now()) @map("created_at")
+  updatedAt      DateTime              @updatedAt @map("updated_at")
+  birthDate      DateTime
+  firstName      String
+  lastName       String
+  createdBy      Event[]
+  event          UserInEvent[]
+  likedMeals     UsersLikedMeals[]
+  likedMovies    UsersLikedMovies[]
+  likedPlaces    UsersLikedPlaces[]
   dislikedMeals  UsersDislikedMeals[]
   dislikedMovies UsersDislikedMovies[]
   dislikedPlaces UsersDislikedPlaces[]
@@ -30,18 +31,21 @@ model User {
 
 model Event {
   id              Int               @id @default(autoincrement())
+  userId          Int               
   name            String            @db.VarChar(80)
   password        String            @db.VarChar(15)
   plannedDate     DateTime
   createdAt       DateTime          @default(now()) @map("created_at")
   updatedAt       DateTime          @updatedAt @map("updated_at")
-  event_decisions event_decisions[]
+  user            User              @relation(fields: [userId], references: [id])
+  event_decisions EventDecisions[]
   users           UserInEvent[]
 
   @@map("events")
 }
 
 model UserInEvent {
+  id        Int      @id @default(autoincrement())
   userId    Int
   eventId   Int
   createdAt DateTime @default(now()) @map("created_at")
@@ -53,12 +57,58 @@ model UserInEvent {
   @@map("users_in_event")
 }
 
+model Movie {
+  id              Int                   @id @default(autoincrement())
+  title           String                @db.VarChar(80)
+  description     String?
+  duration        Int?
+  genre           String?                @db.VarChar(50)
+  createdAt       DateTime              @default(now()) @map("created_at")
+  updatedAt       DateTime              @updatedAt @map("updated_at")
+  urlImage        String?               @db.VarChar(255)
+  event_decisions EventDecisions[]
+  usersLiked      UsersLikedMovies[]
+  usersDisliked   UsersDislikedMovies[]
+
+  @@map("movies")
+}
+
+model Meal {
+  id              Int                  @id @default(autoincrement())
+  name            String               @db.VarChar(80)
+  description     String?
+  createdAt       DateTime             @default(now()) @map("created_at")
+  updatedAt       DateTime             @updatedAt @map("updated_at")
+  urlImage        String?              @db.VarChar(255)
+  event_decisions EventDecisions[]
+  usersLiked      UsersLikedMeals[]
+  usersdisiked    UsersDislikedMeals[]
+
+  @@map("meals")
+}
+
+model Place {
+  id              Int                   @id @default(autoincrement())
+  title           String                @db.VarChar(80)
+  location        String?
+  rating          Int?
+  createdAt       DateTime              @default(now()) @map("created_at")
+  updatedAt       DateTime              @updatedAt @map("updated_at")
+  urlImage        String?               @db.VarChar(255)
+  event_decisions EventDecisions[]
+  usersLiked      UsersLikedPlaces[]
+  usersDisliked   UsersDislikedPlaces[]
+
+  @@map("places")
+}
 
 model UsersLikedMovies {
+  id        Int               @id @default(autoincrement())
   movieId   Int
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  movie     Movie    @relation(fields: [movieId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([movieId, userId])
@@ -66,10 +116,12 @@ model UsersLikedMovies {
 }
 
 model UsersLikedMeals {
+  id        Int               @id @default(autoincrement())
   mealId    Int
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  meal      Meal     @relation(fields: [mealId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([mealId, userId])
@@ -77,10 +129,12 @@ model UsersLikedMeals {
 }
 
 model UsersLikedPlaces {
+  id        Int               @id @default(autoincrement())
   placeId   Int
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  place     Place    @relation(fields: [placeId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([placeId, userId])
@@ -88,10 +142,12 @@ model UsersLikedPlaces {
 }
 
 model UsersDislikedMovies {
+  id        Int               @id @default(autoincrement())
   movieId   Int
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  movie     Movie    @relation(fields: [movieId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([movieId, userId])
@@ -99,10 +155,12 @@ model UsersDislikedMovies {
 }
 
 model UsersDislikedMeals {
+  id        Int               @id @default(autoincrement())
   mealId    Int
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  meal      Meal     @relation(fields: [mealId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([mealId, userId])
@@ -110,23 +168,30 @@ model UsersDislikedMeals {
 }
 
 model UsersDislikedPlaces {
+  id        Int               @id @default(autoincrement())
   placeId   Int
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  place     Place    @relation(fields: [placeId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([placeId, userId])
   @@map("users_disliked_places")
 }
 
-model event_decisions {
+model EventDecisions {
   id         Int      @id @default(autoincrement())
   eventId    Int
   movieId    Int?
   mealId     Int?
   placeId    Int?
-  created_at DateTime @default(now())
-  updated_at DateTime
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
   events     Event    @relation(fields: [eventId], references: [id])
+  meals      Meal?    @relation(fields: [mealId], references: [id])
+  movies     Movie?   @relation(fields: [movieId], references: [id])
+  places     Place?   @relation(fields: [placeId], references: [id])
+
+  @@map("event_decisions")
 }
