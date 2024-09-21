@@ -33,7 +33,7 @@ export const likedMovieController = () => {
         }
     }
 
-    const getLikedMovies = async (request, response, next) => {
+    const getLikedMovies = async (request, response, next) => { //*json api */
         const { query } = request
         const userId = Number(query?.id)
         try {

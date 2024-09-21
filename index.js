@@ -28,12 +28,12 @@ app.use(cors({
 //en caso de que querramos usar las cookies - se verá
 app.use(cookieParser());
 
-app.use(ejwt({
-  secret: process.env.SECRET_KEY,
-  algorithms: ['HS256'],
-}).unless({
-  path: ['/api/login', '/api/register', '/api/refresh-token'],
-}))
+// app.use(ejwt({
+//   secret: process.env.SECRET_KEY,
+//   algorithms: ['HS256'],
+// }).unless({
+//   path: ['/api/login', '/api/register', '/api/refresh-token'],
+// }));
 
 app.use("/api", userRouter, eventRouter, likedMovieRouter, dislikedMovieRouter, likedMealRouter, dislikedMealRouter, likedPlaceRouter, dislikedPlaceRouter);
 

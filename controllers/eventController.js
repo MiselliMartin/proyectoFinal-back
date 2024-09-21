@@ -38,13 +38,13 @@ export const eventController = () => {
 
 
     const joinEvent = async (req, res, next) => {
-        const { eventId, name, password, userId  } = req.body;
+        const { id, password, userId } = req.body;
       
         try {
           // Buscar el evento por ID
           const event = await prisma.event.findUnique({
             where: {
-              id: parseInt(eventId),
+              id: parseInt(id),
             },
             include: {
               users: true,
@@ -67,7 +67,7 @@ export const eventController = () => {
           // Unir al usuario al evento
           await prisma.userInEvent.create({
             data: {
-              userId: user.id,
+              userId: parseInt(userId),
               eventId: event.id,
             },
           });
