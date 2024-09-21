@@ -3,7 +3,7 @@ import { eventController } from '../controllers/eventController.js'
 // import { validateToken } from '../middlewares/validateToken.js'
 
 const eventRouter = Router()
-const { createEvent, getEventById, joinEvent, updateEvent, deleteEvent, listEvents, addUserToEvent, removeUserFromEvent } = eventController()
+const { createEvent, getEventById, joinEvent, updateEvent, deleteEvent, listEvents, addUserToEvent, removeUserFromEvent, getUsersInEvent } = eventController()
 
 eventRouter.route('/createEvent')
     .get(listEvents)
@@ -21,6 +21,7 @@ eventRouter.route('/events/:eventId/roomDecisions'/*, validateToken*/)
 
 eventRouter.route('/events/:eventId/users')
     .post(addUserToEvent)
+    .get(getUsersInEvent)
 
 eventRouter.route('/events/:eventId/users/:userId')
     .delete(removeUserFromEvent)
