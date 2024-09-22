@@ -12,11 +12,8 @@ export const eventController = () => {
                     name,
                     password,
                     plannedDate: new Date(plannedDate),
-                    users: {
-                        create: {
-                            userId: parseInt(userId),
-                        },
-                    },
+                    userId: parseInt(userId),
+
                 },
                 include: {
                     users: true,
