@@ -6,6 +6,9 @@ import { expressjwt as ejwt } from 'express-jwt'
 import errorHandler from "./middlewares/errorHandler.js";
 import userRouter from "./routes/userRouter.js";
 import eventRouter from "./routes/eventRouter.js";
+import mealRouter from "./routes/mealRouter.js";
+import movieRouter from "./routes/movieRouter.js";  
+import placeRouter from "./routes/placeRouter.js";
 import likedMovieRouter from "./routes/likedMovieRouter.js";
 import dislikedMovieRouter from "./routes/dislikedMovieRouter.js";
 import likedMealRouter from "./routes/likedMealRouter.js";
@@ -35,7 +38,7 @@ app.use(cookieParser());
 //   path: ['/api/login', '/api/register', '/api/refresh-token'],
 // }));
 
-app.use("/api", userRouter, eventRouter, likedMovieRouter, dislikedMovieRouter, likedMealRouter, dislikedMealRouter, likedPlaceRouter, dislikedPlaceRouter);
+app.use("/api", userRouter, eventRouter, mealRouter, movieRouter, placeRouter, likedMovieRouter, dislikedMovieRouter, likedMealRouter, dislikedMealRouter, likedPlaceRouter, dislikedPlaceRouter);
 
 //middleware después de los endpoints, por ende en el catch{next(err)} == el error pasa y entra a errorHandler
 //esto lo había subido gabi a github

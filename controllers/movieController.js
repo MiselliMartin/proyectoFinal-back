@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import HTTP_STATUS from "../helpers/httpStatus.js";
+// import { PrismaClient } from "@prisma/client";
+// import HTTP_STATUS from "../helpers/httpStatus.js";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
-export const likedMovieController = () => {
-  const getMovies =
+export const movieController = () => {
+  const movies =
     /*async (request, response, next) =>*/
     //*JSON deruloO/crud */
     // const { query } = request
@@ -338,6 +338,9 @@ export const likedMovieController = () => {
           "https://image.tmdb.org/t/p/w500/bP3nCZq1QGy8x0j6hX0CfekIgCA.jpg",
       },
     ];
+    const getMovies = (req, res) => {
+      res.json(movies); // Envía la lista de comidas como respuesta JSON
+    };
 
   return {
     getMovies,

@@ -6,10 +6,10 @@ const { getPlaces, createPlace, getPlaceById, deletePlaceById, updatePlaceById }
 
 placeRouter.route('/places')
     .get(getPlaces)
-    .post(createPlace)
-placeRouter.route('/places/:id')
-    .get(getPlaceById)
-    .delete(deletePlaceById)
-    .patch(updatePlaceById)
+//     .post(createPlace)
+// placeRouter.route('/places/:id')
+//     .get(getPlaceById)
+//     .delete(deletePlaceById)
+//     .patch(updatePlaceById)
 
 export default placeRouter

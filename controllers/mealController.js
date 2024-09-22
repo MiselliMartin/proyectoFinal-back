@@ -1,40 +1,11 @@
-import { PrismaClient } from "@prisma/client";
-import HTTP_STATUS from "../helpers/httpStatus.js";
+// import { PrismaClient } from "@prisma/client";
+// import HTTP_STATUS from "../helpers/httpStatus.js";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
-export const likedMealController = () => {
-  const getMeals =
-    /*async (request, response, next) =>*/
-    // const { query } = request
-    // const userId = Number(query?.id)
-    // try {
-    //     const likedMeals = await prisma.Meals.findMany({
-    //         where: {
-    //             userId
-    //         },
-    //         select: {
-    //             mealId: true,
-    //             userId: true,
-    //             meal: {
-    //                 select: {
-    //                     name: true
-    //                 }
-    //             }
-    //         },
-    //         user: {
-    //             select: {
-    //                 username: true,
-    //                 email: true
-    //             }
-    //         }
-    //     })
-    //     return response.status(HTTP_STATUS.OK).json(likedMeals)
-    // } catch (error) {
-    //     next(error)
-    // } finally {
-    //     await prisma.$disconnect();
-    // }
+export const mealController = () => {
+  const meals =
+    
 
     [
       {
@@ -337,7 +308,39 @@ export const likedMealController = () => {
           "https://www.cocinadomestica.com/wp-content/uploads/2021/09/tortellini.jpg",
       },
     ];
-
+    /*async (request, response, next) =>*/
+    // const { query } = request
+    // const userId = Number(query?.id)
+    // try {
+    //     const likedMeals = await prisma.Meals.findMany({
+    //         where: {
+    //             userId
+    //         },
+    //         select: {
+    //             mealId: true,
+    //             userId: true,
+    //             meal: {
+    //                 select: {
+    //                     name: true
+    //                 }
+    //             }
+    //         },
+    //         user: {
+    //             select: {
+    //                 username: true,
+    //                 email: true
+    //             }
+    //         }
+    //     })
+    //     return response.status(HTTP_STATUS.OK).json(likedMeals)
+    // } catch (error) {
+    //     next(error)
+    // } finally {
+    //     await prisma.$disconnect();
+    // }
+    const getMeals = (req, res) => {
+      res.json(meals); // Envía la lista de comidas como respuesta JSON
+    };
   return {
     getMeals,
   };

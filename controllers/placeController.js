@@ -3,8 +3,8 @@ import HTTP_STATUS from "../helpers/httpStatus.js";
 
 const prisma = new PrismaClient();
 
-export const likedPlaceController = () => {
-  const getPlaces = /*async (request, response, next) =>*/ [
+export const placeController = () => {
+  const places = /*async (request, response, next) =>*/ [
     {
       id: 1,
       title: "Parque Tres de Febrero",
@@ -306,6 +306,10 @@ export const likedPlaceController = () => {
         "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Plaza_Vicente_L%C3%B3pez_Buenos_Aires.jpg/800px-Plaza_Vicente_L%C3%B3pez_Buenos_Aires.jpg",
     },
   ];
+
+  const getPlaces = (req, res) => {
+    res.json(places); // Envía la lista de comidas como respuesta JSON
+  };
 
   // const { query } = request
   // const userId = Number(query?.id)

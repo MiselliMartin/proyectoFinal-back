@@ -6,10 +6,10 @@ const { getMovies, createMovie, getMovieById, deleteMovieById, updateMovieById }
 
 movieRouter.route('/movies')
     .get(getMovies)
-    .post(createMovie)
-movieRouter.route('/movies/:id')
-    .get(getMovieById)
-    .delete(deleteMovieById)
-    .patch(updateMovieById)
+//     .post(createMovie)
+// movieRouter.route('/movies/:id')
+//     .get(getMovieById)
+//     .delete(deleteMovieById)
+//     .patch(updateMovieById)
 
 export default movieRouter
