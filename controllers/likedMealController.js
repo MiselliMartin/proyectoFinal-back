@@ -10,7 +10,7 @@ export const likedMealController = () => {
         const userId = Number(body?.userId ?? null)
 
         try {
-            const likedMeal = await prisma.UsersLikedMeals.create({
+            const likedMeal = await prisma.usersLikedMeals.create({
                 data: {
                     mealId,
                     userId
@@ -21,7 +21,7 @@ export const likedMealController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await prisma.$disconnect()
+            await prisma.$disconnect();
         }
     }
 
@@ -29,7 +29,7 @@ export const likedMealController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const likedMeals = await prisma.UsersLikedMeals.findMany({
+            const likedMeals = await prisma.usersLikedMeals.findMany({
                 where: {
                     userId
                 },
@@ -53,7 +53,7 @@ export const likedMealController = () => {
         } catch (error) {
             next(error)
         } finally {
-            await prisma.$disconnect
+            await prisma.$disconnect();
         }
     }
 
