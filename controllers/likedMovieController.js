@@ -7,9 +7,9 @@ export const likedMovieController = () => {
     const markAsLiked = async (request, response, next) => {
         // const { movieId, userId } = request.body //*fetch movie data from api findUnique{id}*/
         // const userId = req.tokenId;    
-    const { body } = request
-    const userId = Number(body?.userId ?? null)
-    const movieId = Number(body?.itemId ?? null)
+        const { body } = request
+        const userId = Number(body?.userId ?? null)
+        const movieId = Number(body?.itemId ?? null)
 
 
         try {
@@ -65,8 +65,34 @@ export const likedMovieController = () => {
         }
     }
 
-    return {
-        markAsLiked,
-        getLikedMovies
+    const getMostLikedMovies = async (req, res) => {
+        const { eventId } = req.params;
+        const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
+        const halfUsers = Math.ceil(totalUsers / 2)
+
+        try {
+            const likedMovies = await prisma.usersLikedMovies.findMany({
+                where: {
+                    likes: {
+                        some: {
+                            eventId,
+                            _count: { gte: halfUsers / 2 }
+                        }
+                    }
+                },
+            });
+
+            res.json(likedMovies);
+        } catch (error) {
+            next(error)
+        } finally {
+            await prisma.$disconnect();
+        }
+    };
+
+        return {
+            markAsLiked,
+            getLikedMovies,
+            getMostLikedMovies
+        }
     }
-}
