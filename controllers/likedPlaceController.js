@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export const likedPlaceController = () => {
     const markAsLiked = async (request, response, next) => {
         const { body } = request
-        const placeId = Number(body?.placeId ?? null)
+        const placeId = Number(body?.itemId ?? null)
         const userId = Number(body?.userId ?? null)
 
         try {

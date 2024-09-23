@@ -6,11 +6,11 @@ const prisma = new PrismaClient();
 export const dislikedPlaceController = () => {
     const markAsDisliked = async (request, response, next) => {
         const { body } = request
-        const placeId = Number(body?.placeId ?? null)
+        const placeId = Number(body?.itemId ?? null)
         const userId = Number(body?.userId ?? null)
 
         try {
-            const dislikedPlace = await prisma.UsersDislikedPlaces.create({
+            const dislikedPlace = await prisma.usersDislikedPlaces.create({
                 data: {
                     placeId,
                     userId
@@ -29,7 +29,7 @@ export const dislikedPlaceController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const dislikedPlaces = await prisma.UsersDislikedPlaces.findMany({
+            const dislikedPlaces = await prisma.usersDislikedPlaces.findMany({
                 where: {
                     userId
                 },
