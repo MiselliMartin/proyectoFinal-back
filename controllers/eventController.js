@@ -36,54 +36,54 @@ export const eventController = () => {
 
     const joinEvent = async (req, res, next) => {
         const { id, password, userId } = req.body;
-      
+
         try {
-          // Buscar el evento por ID
-          const event = await prisma.event.findUnique({
-            where: {
-              id: parseInt(id),
-            },
-            include: {
-              users: true,
-            },
-          });
-      
-          if (!event) {
-            return res.status(404).json({
-              message: "Event not found. Please check the event ID.",
+            // Buscar el evento por ID
+            const event = await prisma.event.findUnique({
+                where: {
+                    id: parseInt(id),
+                },
+                include: {
+                    users: true,
+                },
             });
-          }
-      
-          // Verificar la contraseña del evento
-          if (event.password !== password) {
-            return res.status(401).json({
-              message: "Incorrect password.",
+
+            if (!event) {
+                return res.status(404).json({
+                    message: "Event not found. Please check the event ID.",
+                });
+            }
+
+            // Verificar la contraseña del evento
+            if (event.password !== password) {
+                return res.status(401).json({
+                    message: "Incorrect password.",
+                });
+            }
+
+            // Unir al usuario al evento
+            await prisma.userInEvent.create({
+                data: {
+                    userId: parseInt(userId),
+                    eventId: event.id,
+                },
             });
-          }
-      
-          // Unir al usuario al evento
-          await prisma.userInEvent.create({
-            data: {
-              userId: parseInt(userId),
-              eventId: event.id,
-            },
-          });
-      
-          const responseFormat = {
-            data: event,
-            message: "Joined event successfully",
-          };
-      
-          return res.status(200).json(responseFormat);
+
+            const responseFormat = {
+                data: event,
+                message: "Joined event successfully",
+            };
+
+            return res.status(200).json(responseFormat);
         } catch (error) {
-          next(error);
+            next(error);
         } finally {
-          await prisma.$disconnect();
+            await prisma.$disconnect();
         }
-      };
-      
-      
-      
+    };
+
+
+
 
 
     const getEventById = async (req, res, next) => {
@@ -260,6 +260,30 @@ export const eventController = () => {
             await prisma.$disconnect();
         }
     };
+    const getEventsFromUser = async (req, res, next) => {
+        const { userId } = req.params;
+        try {
+            const eventsFromUser = await prisma.userInEvent.findMany({
+                where: {
+                    userId: parseInt(userId),
+                },
+                include: {
+                    event: true,
+                },
+            });
+
+            const responseFormat = {
+                data: eventsFromUser,
+                message: "Events from user retrieved successfully",
+            };
+
+            return res.status(httpStatus.OK).json(responseFormat);
+        } catch (error) {
+            next(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    };
 
     return {
         createEvent,
@@ -271,5 +295,6 @@ export const eventController = () => {
         addUserToEvent,
         removeUserFromEvent,
         getUsersInEvent,
+        getEventsFromUser
     };
 };

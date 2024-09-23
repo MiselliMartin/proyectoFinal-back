@@ -7,23 +7,20 @@ export const usersInEventController = () => {
     const getUsersInEvent = async (req, res, next) => {
         const { eventId } = req.params;
         try {
-            const usersInEvent = await prisma.userInEvent.findUnique({
-                where: { id: parseInt(eventId) },
+            // Buscar todos los usuarios que están en el evento
+            const usersInEvent = await prisma.userInEvent.findMany({
+                where: { eventId: parseInt(eventId) },
                 include: {
-                    users: {
-                        include: {
-                            user: true
-                        }
-                    }
-                }
+                    user: true,  // Incluir la relación con la tabla 'User'
+                },
             });
 
-            if (!usersInEvent) {
-                return res.status(httpStatus.NOT_FOUND).json({ message: "Event not found" });
+            if (!usersInEvent || usersInEvent.length === 0) {
+                return res.status(httpStatus.NOT_FOUND).json({ message: "Event not found or no users in event" });
             }
 
             const responseFormat = {
-                data: usersInEvent.users.map(ue => ue.user),
+                data: usersInEvent.map(ue => ue.user),  // Mapear solo los usuarios
                 message: "Users in event retrieved successfully",
             };
 
@@ -38,23 +35,20 @@ export const usersInEventController = () => {
     const getEventsForUser = async (req, res, next) => {
         const { userId } = req.params;
         try {
-            const eventsForUser = await prisma.userInEvent.findUnique({
-                where: { id: parseInt(userId) },
+            // Buscar todos los eventos en los que está el usuario
+            const eventsForUser = await prisma.userInEvent.findMany({
+                where: { userId: parseInt(userId) },
                 include: {
-                    events: {
-                        include: {
-                            event: true
-                        }
-                    }
-                }
+                    event: true,  // Incluir la relación con la tabla 'Event'
+                },
             });
 
-            if (!eventsForUser) {
-                return res.status(httpStatus.NOT_FOUND).json({ message: "User not found" });
+            if (!eventsForUser || eventsForUser.length === 0) {
+                return res.status(httpStatus.NOT_FOUND).json({ message: "User not found or no events for user" });
             }
 
             const responseFormat = {
-                data: eventsForUser.events.map(ue => ue.event),
+                data: eventsForUser.map(ue => ue.event),  // Mapear solo los eventos
                 message: "Events for user retrieved successfully",
             };
 
