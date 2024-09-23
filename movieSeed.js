@@ -5,261 +5,182 @@ const prisma = new PrismaClient();
 const main = async () => {
   const movies = [
     {
-      title: "Inception",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/8x3xKfn1W4yf7S7vV7Lv5tlK5g.jpg",
+      title: "Origen",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Dark Knight",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/1h8VndwP1KkmoM3D6E4y44n9Bd4.jpg",
+      title: "El Caballero de la Noche",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg",
     },
     {
       title: "Interstellar",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/8zBoqCev8c24uL8E3Z5yWwhHTSO.jpg",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Fight Club",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/6jH0y0kgIeytO4Yq3l9Q3fyBguG.jpg",
+      title: "El Club de la Pelea",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNDIzNDU0YzEtYzE5Ni00ZjlkLTk5ZjgtNjM3NWE4YzA3Nzk3XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_FMjpg_UX1000_.jpg",
     },
     {
       title: "Pulp Fiction",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/6yHjfuJS70ry4Q4kVZbUPlKnnxL.jpg",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
     },
     {
       title: "Forrest Gump",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/s0gd65sn8iH4tUOEzAxgFOPsmXY.jpg",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Shawshank Redemption",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/qXl1Q2S8U1y02mEcW5ZZS6BWfD6.jpg",
+      title: "Sueños de Libertad",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Godfather",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/8G8i1HkFlVTTn8giwvoHLX1Qv1h.jpg",
+      title: "El Padrino",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Matrix",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/nw6Vp4rN0udZL4qR8VjqCVa4DDA.jpg",
+      title: "Matrix",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Avengers",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/z6bL3z7NjxOl1dUQzRSqA2xv2It.jpg",
+      title: "Los Vengadores",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Gladiator",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/qD2gCwlE0Z2IzPl3KBRdrRaf9zT.jpg",
+      title: "Gladiador",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMDliMmNhNDEtODUyOS00MjNlLTgxODEtN2U3NzIxMGVkZTA1L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Silence of the Lambs",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/lq9H2M9oFnt6NlCeFl5hA2h2MIe.jpg",
+      title: "El Silencio de los Inocentes",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNjNhZTk0ZmEtNjJhMi00YzFlLWE1MmEtYzM1M2ZmMGMwMTU4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Saving Private Ryan",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/xsD4Q2Xblq6vAFV0bYX9M4Ilxq1.jpg",
+      title: "Rescatando al Soldado Ryan",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BZjhkMDM4MWItZTVjOC00ZDRhLThmYTAtM2I5NzBmNmNlMzI1XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Schindler's List",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/n8c7HflQj3yaq1iDAEb3Xq3J8dD.jpg",
+      title: "La lista de Schindler",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNDE4OTMxMTctNmRhYy00NWE2LTg3YzItYTk3M2UwOTU5Njg4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Departed",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/4U9aN0w0avd9H53TVcV8eUQb9oR.jpg",
+      title: "Los Infiltrados",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTI1MTY2OTIxNV5BMl5BanBnXkFtZTYwNjQ4NjY3._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Usual Suspects",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/eOoNO8K0NeGv1m5N7HYsO9z3XEu.jpg",
+      title: "Los Sospechosos de Siempre",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BYTViNjMyNmUtNDFkNC00ZDRlLThmMDUtZDU2YWE4NGI2ZjVmXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Se7en",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/2br4glYIX6wz2ddHgw4W6npK6XV.jpg",
+      title: "Se7en: Los Siete Pecados Capitales",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BOTUwODM5MTctZjczMi00OTk4LTg3NWUtNmVhMTAzNTNjYjcyXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Braveheart",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/cYhRZ9Cz3jPqOEEV8bA3Y4g3E54.jpg",
+      title: "Corazón Valiente",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMzkzMmU0YTYtOWM3My00YzBmLWI0YzctOGYyNTkwMWE5MTJkXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Lion King",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/4z4cxlxW3zANvFZAsYMF85iwxWg.jpg",
+      title: "El Rey León",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BYTYxNGMyZTYtMjE3MS00MzNjLWFjNmYtMDk3N2FmM2JiM2M1XkEyXkFqcGdeQXVyNjY5NDU4NzI@._V1_FMjpg_UX1000_.jpg",
     },
     {
       title: "Titanic",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/3A4jl3NgtRb50s3ZxU1wFCUUCpA.jpg",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX1000_.jpg",
     },
     {
       title: "Avatar",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/5Pq8lfd5wrN5IikvOQFNiU9du0B.jpg",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BZDA0OGQxNTItMDZkMC00N2UyLTg3MzMtYTJmNjg3Nzk5MzRiXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Social Network",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/mLx7mGdhU9u4dOlG5Fm49DPo59B.jpg",
+      title: "La Red Social",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BOGUyZDUxZjEtMmIzMC00MzlmLTg4MGItZWJmMzBhZjE0Mjc1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Spider-Man: No Way Home",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/mF05L5abkzHP4Sxw0Q59zF9f0bA.jpg",
+      title: "Spider-Man: Sin Camino a Casa",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Pursuit of Happyness",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/vhU1wA9bSkCtzH9b9tW8AyPZ9v3.jpg",
+      title: "En busca de la felicidad",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTQ5NjQ0NDI3NF5BMl5BanBnXkFtZTcwNDI0MjEzMw@@._V1_FMjpg_UX1000_.jpg",
+    },
+    {
+      title: "Parque Jurásico",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNjUyODQzNTk4OV5BMl5BanBnXkFtZTcwNjYyNzM5Mg@@._V1_FMjpg_UX1000_.jpg",
+    },
+    {
+      title: "El Señor de los Anillos: La Comunidad del Anillo",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNzJmNDBjNjAtNjA5NC00NWI0LTk5MDktYTg2YjRiYzZkNmQzXkEyXkFqcGdeQXVyNDQxNjE0NjI@._V1_FMjpg_UX1000_.jpg",
+    },
+    {
+      title: "Regreso al Futuro",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTY0OTU3NjUwOF5BMl5BanBnXkFtZTcwNzY0NjA4NA@@._V1_FMjpg_UX1000_.jpg",
+    },
+    {
+      title: "Casablanca",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNjBlM2Y4MTktNDM2MS00NmQ0LWE2ZmUtNGI3ZmU5MTg3NmFmXkEyXkFqcGdeQXVyMjQ3NTAzNTU@._V1_FMjpg_UX1000_.jpg",
+    },
+    {
+      title: "El Mago de Oz",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjEwMTU3MzA5MF5BMl5BanBnXkFtZTcwNjY0MDY3NA@@._V1_FMjpg_UX1000_.jpg",
+    },
+    {
+      title: "La Novicia Rebelde",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjI0NjE5NTk0MF5BMl5BanBnXkFtZTgwNTQzNTQ2MjE@._V1_FMjpg_UX1000_.jpg",
+    },
+    {
+      title: "El Diario de Bridget Jones",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTM1MjQ4MDA5MV5BMl5BanBnXkFtZTcwMjM2OTg3Mw@@._V1_FMjpg_UX1000_.jpg",
     },
     {
       title: "Toy Story",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/4DgHJKYlS0c9T6vOWuhob4L8CKD.jpg",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjE4NTk2MTMzNl5BMl5BanBnXkFtZTcwMzUzMDk4NA@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Inside Out",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/8y6BML0XbIsC5qaYv25hYFTfb29.jpg",
+      title: "El Gran Lebowski",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNTMzNTA2MjIxNF5BMl5BanBnXkFtZTcwNjE0MDQ3Mw@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Incredibles",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/9AePLP1pYsQF61g1iIP8Rg7QaMk.jpg",
-    },
-    {
-      title: "Finding Nemo",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/bP3nCZq1QGy8x0j6hX0CfekIgCA.jpg",
-    },
-    {
-      title: "Zootopia",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/n2tQkqMTCukG4C0PbTe8kAqS1qE.jpg",
-    },
-    {
-      title: "Coco",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/9D5CxlxP9o3gAkEufbEEzXguV1N.jpg",
-    },
-    {
-      title: "The Grand Budapest Hotel",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/uU2bxA4qlp6P6E0LRRELP5kVm0d.jpg",
-    },
-    {
-      title: "The Shape of Water",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/z3yIsUy2BGhvKhYr5dU7eWcXjO5.jpg",
+      title: "Terminator",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjA5MDMzNjk1NF5BMl5BanBnXkFtZTcwMTY3MjY4Mw@@._V1_FMjpg_UX1000_.jpg",
     },
     {
       title: "La La Land",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/46hxwj9z0xVV2ApGttDla0TYZql.jpg",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNjI0MDU2NTA5Nl5BMl5BanBnXkFtZTgwMDk3NTAyMjI@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Mad Max: Fury Road",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/p3Twrww5Z4B9bb3SKD9OCAvM3I8.jpg",
+      title: "El Sexto Sentido",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BNjY4OTYzMzIwMV5BMl5BanBnXkFtZTcwNjE5Nzg4Mw@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Get Out",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/rh9YyHdfHTQh1IsjYJHk3f04xyp.jpg",
+      title: "El Club de los Cinco",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjA4MzYzNjY5OF5BMl5BanBnXkFtZTcwNzM5NDA5NA@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Black Panther",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/5Z2qG9A5Q1B3aZAW43oazF86FzC.jpg",
+      title: "Una Mente Maravillosa",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTI4NzYzMjI4NF5BMl5BanBnXkFtZTcwMTY1MjIwMQ@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Wonder Woman",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/xWkFm6SvP8B71sEjZoXW1w63z0Q.jpg",
+      title: "La Princesa Prometida",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjA5MjA4MDA1OV5BMl5BanBnXkFtZTcwNzU4NTY1NA@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Jurassic Park",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/p2Ls7Ae7GJGbRk4M8fVnTLfVXi7.jpg",
+      title: "El Club de los Poetas Muertos",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjAwNzU3ODc3NF5BMl5BanBnXkFtZTcwMDMwMzA2Mw@@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Star Wars: Episode IV - A New Hope",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/4Kj59uGyQYvcdDqZ5nU5RDlPYWY.jpg",
+      title: "Blade Runner 2049",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTg3MzM5MzA3N15BMl5BanBnXkFtZTgwNjI2Njk0MzI@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Wizard of Oz",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/7cRvxMTQiG1E7QUJaeqRGYDAjRg.jpg",
+      title: "La Forma del Agua",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTQ0NTg0MDY4OF5BMl5BanBnXkFtZTgwOTYyMzM2MjI@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "The Lion King",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/4z4cxlxW3zANvFZAsYMF85iwxWg.jpg",
+      title: "Mad Max: Furia en el Camino",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMTc0Mzg2MDg4MF5BMl5BanBnXkFtZTgwMDczNTIzNjE@._V1_FMjpg_UX1000_.jpg",
     },
     {
-      title: "Titanic",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/3A4jl3NgtRb50s3ZxU1wFCUUCpA.jpg",
+      title: "¡Huye!",
+      urlImage: "https://m.media-amazon.com/images/M/MV5BMjQyNjEyNzQzOF5BMl5BanBnXkFtZTgwMzg5MDIwMzI@._V1_FMjpg_UX1000_.jpg",
     },
-    {
-      title: "Avatar",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/5Pq8lfd5wrN5IikvOQFNiU9du0B.jpg",
-    },
-    {
-      title: "The Social Network",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/mLx7mGdhU9u4dOlG5Fm49DPo59B.jpg",
-    },
-    {
-      title: "Spider-Man: No Way Home",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/mF05L5abkzHP4Sxw0Q59zF9f0bA.jpg",
-    },
-    {
-      title: "The Pursuit of Happyness",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/vhU1wA9bSkCtzH9b9tW8AyPZ9v3.jpg",
-    },
-    {
-      title: "Toy Story",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/4DgHJKYlS0c9T6vOWuhob4L8CKD.jpg",
-    },
-    {
-      title: "Inside Out",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/8y6BML0XbIsC5qaYv25hYFTfb29.jpg",
-    },
-    {
-      title: "The Incredibles",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/9AePLP1pYsQF61g1iIP8Rg7QaMk.jpg",
-    },
-    {
-      title: "Finding Nemo",
-      urlImage:
-        "https://image.tmdb.org/t/p/w500/bP3nCZq1QGy8x0j6hX0CfekIgCA.jpg",
-    },
-  ];
-  for (const movie of movies) {
-    await prisma.movie.create({
-      data: movie,
-    });
-  }
+];
 
   console.log("Las peliculas han sido añadidas a la base de datos");
 };
@@ -272,3 +193,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+
