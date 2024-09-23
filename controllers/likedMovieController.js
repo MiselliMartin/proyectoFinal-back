@@ -9,7 +9,7 @@ export const likedMovieController = () => {
         // const userId = req.tokenId;    
     const { body } = request
     const userId = Number(body?.userId ?? null)
-    const movieId = Number(body?.movieId ?? null)
+    const movieId = Number(body?.itemId ?? null)
 
 
         try {

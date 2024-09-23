@@ -6,11 +6,11 @@ const prisma = new PrismaClient();
 export const dislikedMovieController = () => {
     const markAsDisliked = async (request, response, next) => {
         const { body } = request
-        const movieId = Number(body?.movieId ?? null)
+        const movieId = Number(body?.itemId ?? null)
         const userId = Number(body?.userId ?? null)
 
         try {
-            const dislikedMovie = await prisma.UsersDislikedMovies.create({
+            const dislikedMovie = await prisma.usersDislikedMovies.create({
                 data: {
                     movieId,
                     userId
@@ -29,7 +29,7 @@ export const dislikedMovieController = () => {
         const { query } = request
         const userId = Number(query?.id)
         try {
-            const dislikedMovies = await prisma.UsersDislikedMovies.findMany({
+            const dislikedMovies = await prisma.usersDislikedMovies.findMany({
                 where: {
                     userId
                 },
