@@ -182,6 +182,12 @@ const main = async () => {
     },
 ];
 
+for (const movie of movies) {
+  await prisma.movie.create({
+    data: movie,
+  });
+}
+
   console.log("Las peliculas han sido añadidas a la base de datos");
 };
 

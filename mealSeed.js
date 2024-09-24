@@ -177,9 +177,12 @@ const main = async () => {
     urlImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Papas_fritas_con_huevo.jpg/800px-Papas_fritas_con_huevo.jpg",
   },
 ];
-
-
-console.log("Las peliculas han sido añadidas a la base de datos");
+for (const meal of meals) {
+  await prisma.meal.create({
+    data: meal,
+  });
+}
+console.log("Las comidas han sido añadidas a la base de datos");
 };
 
 main()
