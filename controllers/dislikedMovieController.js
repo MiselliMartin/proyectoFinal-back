@@ -8,12 +8,14 @@ export const dislikedMovieController = () => {
         const { body } = request
         const movieId = Number(body?.itemId ?? null)
         const userId = Number(body?.userId ?? null)
+        const eventId = Number(body?.eventId ?? null)
 
         try {
             const dislikedMovie = await prisma.usersDislikedMovies.create({
                 data: {
                     movieId,
-                    userId
+                    userId,
+                    eventId
                 }
             })
 
@@ -36,6 +38,7 @@ export const dislikedMovieController = () => {
                 select: {
                     movieId: true,
                     userId: true,
+                    eventId: true,
                     movie: {
                         select: {
                             title: true

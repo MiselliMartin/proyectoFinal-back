@@ -8,12 +8,14 @@ export const likedPlaceController = () => {
         const { body } = request
         const placeId = Number(body?.itemId ?? null)
         const userId = Number(body?.userId ?? null)
+        const eventId = Number(body?.eventId ?? null)
 
         try {
             const likedPlace = await prisma.usersLikedPlaces.create({
                 data: {
                     placeId,
-                    userId
+                    userId,
+                    eventId
                 }
             })
 
@@ -36,6 +38,7 @@ export const likedPlaceController = () => {
                 select: {
                     placeId: true,
                     userId: true,
+                    eventId: true,
                     place: {
                         select: {
                             title: true

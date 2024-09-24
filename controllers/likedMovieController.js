@@ -10,6 +10,7 @@ export const likedMovieController = () => {
         const { body } = request
         const userId = Number(body?.userId ?? null)
         const movieId = Number(body?.itemId ?? null)
+        const eventId = Number(body?.eventId ?? null)
 
 
         try {
@@ -19,7 +20,8 @@ export const likedMovieController = () => {
             const likedMovie = await prisma.usersLikedMovies.create({
                 data: {
                     userId,
-                    movieId // Use the internal ID of the movie
+                    movieId, // Use the internal ID of the movie
+                    eventId
                 }
             })
             // console.log(userId)
@@ -44,6 +46,7 @@ export const likedMovieController = () => {
                 select: {
                     movieId: true,
                     userId: true,
+                    eventId: true,
                     // movie: {
                     //     select: {
                     //         title: true   //*fetch movie data from api*/

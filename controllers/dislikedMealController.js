@@ -9,12 +9,14 @@ export const dislikedMealController = () => {
         const { body } = request
         const mealId = Number(body?.itemId ?? null)
         const userId = Number(body?.userId ?? null)
+        const eventId = Number(body?.eventId ?? null)
 
         try {
             const dislikedMeal = await prisma.usersDislikedMeals.create({
                 data: {
                     mealId,
-                    userId
+                    userId,
+                    eventId
                 }
             })
 
@@ -37,6 +39,7 @@ export const dislikedMealController = () => {
                 select: {
                     mealId: true,
                     userId: true,
+                    eventId: true,
                     meal: {
                         select: {
                             name: true
