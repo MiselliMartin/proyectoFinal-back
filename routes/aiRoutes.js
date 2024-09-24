@@ -1,8 +1,11 @@
-import express from 'express';
+import { Router } from 'express';
 import { suggestAlternatives } from '../controllers/aiController.js';
 
-const router = express.Router();
+const aiRouter = Router();
+const { getRecommendations } = aiController()
 
-router.post('/suggestions', suggestAlternatives);
+aiRouter.route('/events/:eventId/result/ai')
+    .get(getRecommendations, suggestAlternatives);
 
-export default router;
+
+export default aiRouter;
