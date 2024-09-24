@@ -5,11 +5,11 @@ import { likedMovieController } from '../controllers/likedMovieController.js'
 const likedMovieRouter = Router()
 const { markAsLiked, getLikedMovies, getMostLikedMovies } = likedMovieController()
 
-likedMovieRouter.route('/movies/liked')
+likedMovieRouter.route('/events/:eventId/movies/liked')
     .post(markAsLiked)
     .get(getLikedMovies)
 
-likedMovieRouter.route('/movies/mostLiked')
+likedMovieRouter.route('/events/:eventId/movies/mostLiked')
     .get(getMostLikedMovies)
 
 export default likedMovieRouter

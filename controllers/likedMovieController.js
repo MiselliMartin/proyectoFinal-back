@@ -7,15 +7,12 @@ export const likedMovieController = () => {
     const markAsLiked = async (request, response, next) => {
         // const { movieId, userId } = request.body //*fetch movie data from api findUnique{id}*/
         // const userId = req.tokenId;    
-        const { body } = request
+        const { body, params } = request
         const userId = Number(body?.userId ?? null)
         const movieId = Number(body?.itemId ?? null)
-        const eventId = Number(body?.eventId ?? null)
-
+        const eventId = Number(params?.eventId)
 
         try {
-
-
             // Now, create the like record
             const likedMovie = await prisma.usersLikedMovies.create({
                 data: {
@@ -36,12 +33,15 @@ export const likedMovieController = () => {
     }
 
     const getLikedMovies = async (request, response, next) => { //*json api */
-        const { query } = request
+        const { query, params } = request
         const userId = Number(query?.id)
+        const eventId = Number(params?.eventId)
+
         try {
             const likedMovies = await prisma.usersLikedMovies.findMany({
                 where: {
-                    userId
+                    userId,
+                    eventId
                 },
                 select: {
                     movieId: true,
@@ -53,12 +53,12 @@ export const likedMovieController = () => {
                     //     }
                     // }
                 },
-                user: {
+                /* user: {
                     select: {
                         username: true,
                         email: true
                     }
-                }
+                } */
             })
             return response.status(HTTP_STATUS.OK).json(likedMovies)
         } catch (error) {
@@ -76,13 +76,11 @@ export const likedMovieController = () => {
         try {
             const likedMovies = await prisma.usersLikedMovies.findMany({
                 where: {
-                    likes: {
-                        some: {
-                            eventId,
-                            _count: { gte: halfUsers / 2 }
-                        }
-                    }
+                    eventId,
                 },
+                having: {
+                    _count: { gte: halfUsers }
+                }
             });
 
             res.json(likedMovies);
@@ -93,9 +91,9 @@ export const likedMovieController = () => {
         }
     };
 
-        return {
-            markAsLiked,
-            getLikedMovies,
-            getMostLikedMovies
-        }
+    return {
+        markAsLiked,
+        getLikedMovies,
+        getMostLikedMovies
     }
+}
