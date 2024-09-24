@@ -4,7 +4,7 @@ import { dislikedPlaceController } from '../controllers/dislikedPlaceController.
 const dislikedPlaceRouter = Router()
 const { markAsDisliked, getDislikedPlaces } = dislikedPlaceController()
 
-dislikedPlaceRouter.route('/places/disliked')
+dislikedPlaceRouter.route('/events/:eventId/places/disliked')
     .post(markAsDisliked)
     .get(getDislikedPlaces)
 
