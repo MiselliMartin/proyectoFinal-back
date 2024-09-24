@@ -68,24 +68,39 @@ export const likedMovieController = () => {
         }
     }
 
-    const getMostLikedMovies = async (req, res) => {
-        const { eventId } = req.params;
-        const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
-        const halfUsers = Math.ceil(totalUsers / 2)
+    const getMostLikedMovies = async (req, res, next) => {
+        const { params } = req
+        const eventId = Number(params?.eventId)
 
         try {
-            const likedMovies = await prisma.usersLikedMovies.findMany({
+            const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
+            const halfUsers = Math.ceil(totalUsers / 2);
+
+            const likedMovies = await prisma.usersLikedMovies.groupBy({
+                by: ['movieId'],
                 where: {
                     eventId,
                 },
+                _count: {
+                    userId: true
+                },
                 having: {
-                    _count: { gte: halfUsers }
+                    userId: {
+                        _count: {
+                            gte: halfUsers
+                        }
+                    }
                 }
             });
 
-            res.json(likedMovies);
+            const formattedResults = likedMovies.map(movie => ({
+                movieId: movie.movieId,
+                likes: movie._count.userId
+            }));
+
+            res.json(formattedResults);
         } catch (error) {
-            next(error)
+            next(error);
         } finally {
             await prisma.$disconnect();
         }
