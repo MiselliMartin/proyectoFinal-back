@@ -30,27 +30,29 @@ export const likedPlaceController = () => {
     const getLikedPlaces = async (request, response, next) => {
         const { query } = request
         const userId = Number(query?.id)
+        const eventId = Number(params?.eventId)
         try {
             const likedPlaces = await prisma.usersLikedPlaces.findMany({
                 where: {
-                    userId
+                    userId,
+                    eventId
                 },
                 select: {
                     placeId: true,
                     userId: true,
                     eventId: true,
-                    place: {
-                        select: {
-                            title: true
-                        }
-                    }
+                    // place: {
+                    //     select: {
+                    //         title: true
+                    //     }
+                    // }
                 },
-                user: {
-                    select: {
-                        username: true,
-                        email: true
-                    }
-                }
+                // user: {
+                //     select: {
+                //         username: true,
+                //         email: true
+                //     }
+                // }
             })
             return response.status(HTTP_STATUS.OK).json(likedPlaces)
         } catch (error) {
@@ -60,8 +62,73 @@ export const likedPlaceController = () => {
         }
     }
 
+    const getMostLikedPlaces = async (req, res, next) => {
+        const { params } = req;
+        const eventId = Number(params?.eventId);
+    
+        try {
+            const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
+            const halfUsers = Math.ceil(totalUsers / 2);
+    
+            const likedPlaces = await prisma.usersLikedPlaces.groupBy({
+                by: ['placeId'],
+                where: {
+                    eventId,
+                },
+                _count: {
+                    userId: true,
+                },
+                having: {
+                    userId: {
+                        _count: {
+                            gte: halfUsers,
+                        },
+                    },
+                },
+                orderBy: {
+                    _count: {
+                        userId: 'desc', // Ordenamos por el número de likes (de mayor a menor)
+                    },
+                },
+                take: 3, // Limita a los primeros 3 resultados más likeados
+            });
+            // Aquí obtienes los detalles de cada película
+            const placeIds = likedPlaces.map(place => place.placeId);
+            
+            const placeDetails = await prisma.place.findMany({
+                where: {
+                    id: { in: placeIds },
+                },
+                select: {
+                    id: true,
+                    title: true,
+                    urlImage: true,
+                },
+            });
+    
+            // Combina los resultados de likes con los detalles de las películas
+            const formattedResults = likedPlaces.map(place => {
+                const placeDetail = placeDetails.find(detail => detail.id === place.placeId);
+                return {
+                    placeId: place.placeId,
+                    title: placeDetail?.title || 'Unknown title', // En caso de que no se encuentre el título
+                    urlImage: placeDetail?.urlImage || 'Unknown image',
+                    likes: place._count.userId,
+                };
+            });
+    
+            res.json(formattedResults);
+        } catch (error) {
+            next(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    };
+    
+
     return {
         markAsLiked,
-        getLikedPlaces
+        getLikedPlaces,
+        getMostLikedPlaces
     }
 }

@@ -69,35 +69,60 @@ export const likedMovieController = () => {
     }
 
     const getMostLikedMovies = async (req, res, next) => {
-        const { params } = req
-        const eventId = Number(params?.eventId)
-
+        const { params } = req;
+        const eventId = Number(params?.eventId);
+    
         try {
             const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
             const halfUsers = Math.ceil(totalUsers / 2);
-
+    
             const likedMovies = await prisma.usersLikedMovies.groupBy({
                 by: ['movieId'],
                 where: {
                     eventId,
                 },
                 _count: {
-                    userId: true
+                    userId: true,
                 },
                 having: {
                     userId: {
                         _count: {
-                            gte: halfUsers
-                        }
-                    }
-                }
+                            gte: halfUsers,
+                        },
+                    },
+                },
+                orderBy: {
+                    _count: {
+                        userId: 'desc', // Ordenamos por el número de likes (de mayor a menor)
+                    },
+                },
+                take: 3, // Limita a los primeros 3 resultados más likeados
             });
-
-            const formattedResults = likedMovies.map(movie => ({
-                movieId: movie.movieId,
-                likes: movie._count.userId
-            }));
-
+            // Aquí obtienes los detalles de cada película
+            const movieIds = likedMovies.map(movie => movie.movieId);
+            
+            const movieDetails = await prisma.movie.findMany({
+                where: {
+                    id: { in: movieIds },
+                },
+                select: {
+                    id: true,
+                    title: true,
+                    urlImage: true,
+                },
+            });
+    
+            // Combina los resultados de likes con los detalles de las películas
+            const formattedResults = likedMovies.map(movie => {
+                const movieDetail = movieDetails.find(detail => detail.id === movie.movieId);
+                return {
+                    movieId: movie.movieId,
+                    title: movieDetail?.title || 'Unknown title', // En caso de que no se encuentre el título
+                    urlImage: movieDetail?.urlImage || 'Unknown image',
+                    likes: movie._count.userId,
+                };
+            });
+    
             res.json(formattedResults);
         } catch (error) {
             next(error);
@@ -105,6 +130,7 @@ export const likedMovieController = () => {
             await prisma.$disconnect();
         }
     };
+    
 
     return {
         markAsLiked,
