@@ -6,255 +6,195 @@ const main = async () => {
   const places = [
     {
       title: "Parque Tres de Febrero",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Parque_Tres_de_Febrero.jpg/800px-Parque_Tres_de_Febrero.jpg",
+      urlImage: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/68/94/60/paseo-del-rosedal.jpg?w=1200&h=1200&s=1",
     },
     {
       title: "Puerto Madero",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Puerto_Madero%2C_Buenos_Aires.jpg/800px-Puerto_Madero%2C_Buenos_Aires.jpg",
+      urlImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Puerto_Madero%2C_Buenos_Aires_%2840689219792%29.jpg/1200px-Puerto_Madero%2C_Buenos_Aires_%2840689219792%29.jpg",
     },
     {
       title: "Caminito",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Caminito_Buenos_Aires.jpg/800px-Caminito_Buenos_Aires.jpg",
+      urlImage: "https://laguiadebuenosaires.com/wp-content/uploads/2018/06/caminito-800.jpg",
     },
     {
       title: "Plaza de Mayo",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Plaza_de_Mayo_2017.jpg/800px-Plaza_de_Mayo_2017.jpg",
+      urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/piramide_de_mayo_flores_1200_1.jpg",
     },
     {
       title: "Recoleta",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Recoleta_Cemetery_2011.jpg/800px-Recoleta_Cemetery_2011.jpg",
+      urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/floralis_generica_recoleta_dia_verde_1200_1.jpg",
     },
     {
       title: "Jardín Botánico",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Jardin_Botanico_2010.jpg/800px-Jardin_Botanico_2010.jpg",
+      urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/botanico_jardin-1500x610.jpg",
     },
     {
       title: "Avenida 9 de Julio",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Avenida_9_de_Julio.jpg/800px-Avenida_9_de_Julio.jpg",
+      urlImage: "https://www.serargentino.com/public/images/2020/10/16026013540-9-de-Julio-773x458.jpg",
     },
     {
       title: "Palermo Soho",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Palermo_Soho_2016.jpg/800px-Palermo_Soho_2016.jpg",
+      urlImage: "https://res.cloudinary.com/hello-tickets/image/upload/c_limit,f_auto,q_auto,w_768/v1684536781/post_images/Argentina-170/Buenos-aires/Night/26004979950_dd6b9497ea_o_Cropped.jpg",
     },
     {
       title: "Barrio Chino",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Barrio_Chino_Buenos_Aires.jpg/800px-Barrio_Chino_Buenos_Aires.jpg",
+      urlImage: "https://www.lanacion.com.ar/resizer/v2/barrio-chino-en-TPO7OBP6BFA5XP7JP35CN3ROCY.JPG?auth=dd00735b061dc5934450215eb9d7042cbdc6577ce5f66701e7a724c2ec62f9fc&width=420&height=280&quality=70&smart=true",
     },
     {
       title: "Costanera Sur",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Costanera_Sur_Buenos_Aires.jpg/800px-Costanera_Sur_Buenos_Aires.jpg",
+      urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/costanera-sur-glorieta-1500x610.jpg",
     },
-    {
-      title: "Teatro Colón",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Teatro_Col%C3%B3n_Buenos_Aires.jpg/800px-Teatro_Col%C3%B3n_Buenos_Aires.jpg",
-    },
-    {
-      title: "Plaza San Martín",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Plaza_San_Mart%C3%ADn_Buenos_Aires.jpg/800px-Plaza_San_Mart%C3%ADn_Buenos_Aires.jpg",
-    },
-    {
-      title: "Palacio Barolo",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Palacio_Barolo_2011.jpg/800px-Palacio_Barolo_2011.jpg",
-    },
-    {
-      title: "El Obelisco",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Obelisco_de_Buenos_Aires.jpg/800px-Obelisco_de_Buenos_Aires.jpg",
-    },
-    {
-      title: "Museo Nacional de Bellas Artes",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Museo_Nacional_de_Bellas_Artes.jpg/800px-Museo_Nacional_de_Bellas_Artes.jpg",
-    },
-    {
-      title: "Plaza Italia",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Plaza_Italia_Buenos_Aires.jpg/800px-Plaza_Italia_Buenos_Aires.jpg",
-    },
-    {
-      title: "Malba",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Malba_2014.jpg/800px-Malba_2014.jpg",
-    },
-    {
-      title: "Barrio de San Telmo",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/San_Telmo_Buenos_Aires.jpg/800px-San_Telmo_Buenos_Aires.jpg",
-    },
-    {
-      title: "Catedral Metropolitana",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Catedral_Metropolitana_Buenos_Aires.jpg/800px-Catedral_Metropolitana_Buenos_Aires.jpg",
-    },
-    {
-      title: "Parque de la Memoria",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Parque_de_la_Memoria.jpg/800px-Parque_de_la_Memoria.jpg",
-    },
-    {
-      title: "Planetario Galileo Galilei",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Planetario_Galileo_Galilei.jpg/800px-Planetario_Galileo_Galilei.jpg",
-    },
-    {
-      title: "Plaza Serrano",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Plaza_Serrano_Buenos_Aires.jpg/800px-Plaza_Serrano_Buenos_Aires.jpg",
-    },
-    {
-      title: "Barrio La Boca",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/La_Boca_Buenos_Aires.jpg/800px-La_Boca_Buenos_Aires.jpg",
-    },
-    {
-      title: "Costanera Norte",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Costanera_Norte_Buenos_Aires.jpg/800px-Costanera_Norte_Buenos_Aires.jpg",
-    },
-    {
-      title: "Mercado de San Telmo",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Mercado_de_San_Telmo.jpg/800px-Mercado_de_San_Telmo.jpg",
-    },
-    {
-      title: "Museo Evita",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Museo_Evita_Buenos_Aires.jpg/800px-Museo_Evita_Buenos_Aires.jpg",
-    },
-    {
-      title: "Barrio Palermo",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Palermo_Buenos_Aires.jpg/800px-Palermo_Buenos_Aires.jpg",
-    },
-    {
-      title: "Boca Juniors Stadium",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Boca_Juniors_Stadium.jpg/800px-Boca_Juniors_Stadium.jpg",
-    },
-    {
-      title: "Parque Centenario",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Parque_Centenario_Buenos_Aires.jpg/800px-Parque_Centenario_Buenos_Aires.jpg",
-    },
-    {
-      title: "Palacio de Aguas Corrientes",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Palacio_de_Aguas_Corrientes.jpg/800px-Palacio_de_Aguas_Corrientes.jpg",
-    },
-    {
-      title: "Avenida Corrientes",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Avenida_Corrientes.jpg/800px-Avenida_Corrientes.jpg",
-    },
-    {
-      title: "Museo de Arte Moderno",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Museo_de_Arte_Moderno_Buenos_Aires.jpg/800px-Museo_de_Arte_Moderno_Buenos_Aires.jpg",
-    },
-    {
-      title: "El Rosedal",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/El_Rosedal_Buenos_Aires.jpg/800px-El_Rosedal_Buenos_Aires.jpg",
-    },
-    {
-      title: "Plaza de los Dos Congresos",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Plaza_de_los_Dos_Congresos.jpg/800px-Plaza_de_los_Dos_Congresos.jpg",
-    },
-    {
-      title: "Templo Libertad",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Templo_Libertad_Buenos_Aires.jpg/800px-Templo_Libertad_Buenos_Aires.jpg",
-    },
-    {
-      title: "Cerro de la Gloria",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Cerro_de_la_Gloria_Buenos_Aires.jpg/800px-Cerro_de_la_Gloria_Buenos_Aires.jpg",
-    },
-    {
-      title: "El Tigre",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/El_Tigre_Buenos_Aires.jpg/800px-El_Tigre_Buenos_Aires.jpg",
-    },
-    {
-      title: "Parque Lezama",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Parque_Lezama_Buenos_Aires.jpg/800px-Parque_Lezama_Buenos_Aires.jpg",
-    },
-    {
-      title: "Feria de Mataderos",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Feria_de_Mataderos.jpg/800px-Feria_de_Mataderos.jpg",
-    },
-    {
-      title: "Barrio Villa Devoto",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Villa_Devoto_Buenos_Aires.jpg/800px-Villa_Devoto_Buenos_Aires.jpg",
-    },
-    {
-      title: "Centro Cultural Recoleta",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Centro_Cultural_Recoleta_Buenos_Aires.jpg/800px-Centro_Cultural_Recoleta_Buenos_Aires.jpg",
-    },
-    {
-      title: "Plaza de la República",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Plaza_de_la_Rep%C3%BAblica_Buenos_Aires.jpg/800px-Plaza_de_la_Rep%C3%BAblica_Buenos_Aires.jpg",
-    },
-    {
-      title: "Plaza de Mayo",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Plaza_de_Mayo_2017.jpg/800px-Plaza_de_Mayo_2017.jpg",
-    },
-    {
-      title: "Museo Nacional de Bellas Artes",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Museo_Nacional_de_Bellas_Artes.jpg/800px-Museo_Nacional_de_Bellas_Artes.jpg",
-    },
-    {
-      title: "Plaza de la República",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Plaza_de_la_Rep%C3%BAblica_Buenos_Aires.jpg/800px-Plaza_de_la_Rep%C3%BAblica_Buenos_Aires.jpg",
-    },
-    {
-      title: "Jardín Japonés",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Jardin_Japones_Buenos_Aires.jpg/800px-Jardin_Japones_Buenos_Aires.jpg",
-    },
-    {
-      title: "Barrio Belgrano",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Belgrano_Buenos_Aires.jpg/800px-Belgrano_Buenos_Aires.jpg",
-    },
-    {
-      title: "Centro Cultural Kirchner",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Centro_Cultural_Kirchner_Buenos_Aires.jpg/800px-Centro_Cultural_Kirchner_Buenos_Aires.jpg",
-    },
-    {
-      title: "Barrio de Caballito",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Caballito_Buenos_Aires.jpg/800px-Caballito_Buenos_Aires.jpg",
-    },
-    {
-      title: "Plaza Vicente López",
-      urlImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Plaza_Vicente_L%C3%B3pez_Buenos_Aires.jpg/800px-Plaza_Vicente_L%C3%B3pez_Buenos_Aires.jpg",
-    },
-  ];
+      {
+        title: "Teatro Colón",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/teatro_colon_panoramica_1200_1.jpg",
+      },
+      {
+        title: "Plaza San Martín",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/pza_san_martin_0.jpg",
+      },
+      {
+        title: "Palacio Barolo",
+        urlImage: "https://commons.wikimhttps://s7e6w6d2.rocketcdn.me/wp-content/uploads/2013/06/palacio%20barolo.jpgedia.org/wiki/Special:FilePath/Palacio_Barolo_2011.jpg",
+      },
+      {
+        title: "El Obelisco",
+        urlImage: "https://buenosaires.gob.ar/sites/default/files/media/image/2020/05/23/6a0c3268aa9051fd5646973dc070aa7edc1fcb8e.jpg",
+      },
+      {
+        title: "Museo Nacional de Bellas Artes",
+        urlImage: "https://www.cultura.gob.ar/media/uploads/15366666053_2be95c1db8_c.jpg",
+      },
+      {
+        title: "Plaza Italia",
+        urlImage: "https://upload.wikimedia.org/wikipedia/commons/a/af/Plaza_Italia_in_Buenos_Aires.jpg",
+      },
+      {
+        title: "Malba",
+        urlImage: "https://universes.art/fileadmin/user_upload/Specials/MALBA/malba-javier-agustin-rojas-2000-850.jpg",
+      },
+      {
+        title: "Barrio de San Telmo",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/san_telmo_general_calle_1200.jpg",
+      },
+      {
+        title: "Catedral Metropolitana",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/catedral-metropolitana-2021-fachada-1500x610.jpg",
+      },
+      {
+        title: "Parque de la Memoria",
+        urlImage: "https://buenosaires.gob.ar/sites/default/files/styles/full_width/public/media/image/2014/07/09/7a0458780942124841c960eac7da1f8abb9b29e7.jpg?itok=EVDz3Fmt",
+      },
+      {
+        title: "Planetario Galileo Galilei",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/planetario_noche_1200_1.jpg",
+      },
+      {
+        title: "Plaza Serrano",
+        urlImage: "https://ba-h.com.ar/wp-content/uploads/2021/05/plaza-serrano-palermo-feria.jpg",
+      },
+      {
+        title: "Barrio La Boca",
+        urlImage: "https://buenosaires.gob.ar/sites/default/files/media/image/2018/08/23/0cb9ff5cc29168e9728208dfb7596bbd35f15ddc.jpg",
+      },
+      {
+        title: "Costanera Norte",
+        urlImage: "https://www.buenosairesfreewalks.com/spanish/wp-content/uploads/2021/05/costanera-norte-1.jpg",
+      },
+      {
+        title: "Mercado de San Telmo",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/mercado_san_telmo1500x610_fachada.jpg",
+      },
+      {
+        title: "Museo Evita",
+        urlImage: "https://www.museoevitaresto.com.ar/wp-content/uploads/2019/04/1-Fachada-Museo.jpg",
+      },
+      {
+        title: "Barrio Palermo",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/planetario_agua_1200_2.jpg",
+      },
+      {
+        title: "Boca Juniors Stadium",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/estadio_boca_juniors_1200_cancha_1.jpg",
+      },
+      {
+        title: "Parque Centenario",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/parque-centenario-2023-1500x610.jpg",
+      },
+      {
+        title: "Palacio de Aguas Corrientes",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/palacio_aguas_corrientes_1200_a_0.jpg",
+      },
+      {
+        title: "Avenida Corrientes",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/field/image/calle_corrientes_noche_obelisco_1500x610.jpg",
+      },
+      {
+        title: "Museo de Arte Moderno",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/fachada-mumoderno-1500x610.jpg",
+      },
+      {
+        title: "El Rosedal",
+        urlImage: "https://services.meteored.com/img/article/el-rosedal-de-palermo-el-pulmon-verde-de-buenos-aires-aire-libre-1702936797598_1280.jpg",
+      },
+      {
+        title: "Plaza de los Dos Congresos",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/monumento%20dos%20congresos_0.jpg",
+      },
+      {
+        title: "Templo Libertad",
+        urlImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGWIl73hfkr1LnMAzO-_TrP97haHTh8nrrwg&s",
+      },
+      {
+        title: "Cerro de la Gloria",
+        urlImage: "https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/2d/01/98.jpg",
+      },
+      {
+        title: "El Tigre",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/field/image/agua_tigre1500x610.jpg",
+      },
+      {
+        title: "Parque Lezama",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/field/image/parque_lezama_1200.jpg",
+      },
+      {
+        title: "Feria de Mataderos",
+        urlImage: "https://nadienosinvito.com.ar/wp-content/uploads/2017/07/5639e8576718e.jpg",
+      },
+      {
+        title: "Barrio Villa Devoto",
+        urlImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Edificio_Habana_4134%2C_esquina_Lincoln.jpg/640px-Edificio_Habana_4134%2C_esquina_Lincoln.jpg",
+      },
+      {
+        title: "Centro Cultural Recoleta",
+        urlImage: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Centro_Cultural_Recoleta_2012.jpg",
+      },
+      {
+        title: "Plaza de la República",
+        urlImage: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/62/03/a2/getlstd-property-photo.jpg?w=1200&h=1200&s=1",
+      },
+      {
+        title: "Jardín Japonés",
+        urlImage: "https://images.pagina12.com.ar/styles/focal_3_2_960x640/public/2023-07/752275-jard-c3-adn-20japon-c3-a9s.jpg?h=b3660f0d&itok=qe7Uifv_",
+      },
+      {
+        title: "Barrio Belgrano",
+        urlImage: "https://turismo.buenosaires.gob.ar/sites/turismo/files/estatua_belgrano_1200.jpg",
+      },
+      {
+        title: "Centro Cultural Kirchner",
+        urlImage: "https://periodico365.com/wp-content/uploads/2022/02/centro_cultural_kirchner.jpg",
+      },
+      {
+        title: "Barrio de Caballito",
+        urlImage: "https://upload.wikimedia.org/wikipedia/commons/9/99/Buenos_Aires_-_Caballito_-_Plazoleta_Cris%C3%B3logo_Larralde_2.jpg",
+      },
+      {
+        title: "Plaza Vicente López",
+        urlImage: "https://buenosaires.gob.ar/sites/default/files/styles/full_width/public/2023-03/VICENTE%20L%20Y%20PLANES%203_0.JPG?itok=F31Txesu",
+      },
+    ];
+  
+  
   for (const place of places) {
     await prisma.place.create({
       data: place,
