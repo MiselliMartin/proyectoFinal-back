@@ -15,6 +15,7 @@ import likedMealRouter from "./routes/likedMealRouter.js";
 import dislikedMealRouter from "./routes/dislikedMealRouter.js";
 import likedPlaceRouter from "./routes/likedPlaceRouter.js";  
 import dislikedPlaceRouter from "./routes/dislikedPlaceRouter.js";  
+// import aiRouter from "./routes/aiRoutes.js";
 
 //Variables .env
 dotenv.config();
@@ -38,7 +39,7 @@ app.use(cookieParser());
 //   path: ['/api/login', '/api/register', '/api/refresh-token'],
 // }));
 
-app.use("/api", userRouter, eventRouter, mealRouter, movieRouter, placeRouter, likedMovieRouter, dislikedMovieRouter, likedMealRouter, dislikedMealRouter, likedPlaceRouter, dislikedPlaceRouter);
+app.use("/api", userRouter, eventRouter, mealRouter, movieRouter, placeRouter, likedMovieRouter, dislikedMovieRouter, likedMealRouter, dislikedMealRouter, likedPlaceRouter, dislikedPlaceRouter/*, aiRouter*/);
 
 //middleware después de los endpoints, por ende en el catch{next(err)} == el error pasa y entra a errorHandler
 //esto lo había subido gabi a github

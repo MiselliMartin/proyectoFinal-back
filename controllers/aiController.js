@@ -23,6 +23,7 @@
 //     res.status(500).json({ error: error.message });
 //   }
 // };
+import OpenAI from 'openai';
 
 import { Configuration, OpenAIApi } from 'openai';
 

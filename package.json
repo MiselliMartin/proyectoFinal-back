@@ -27,6 +27,7 @@
     "express-jwt": "8.4.1",
     "joi": "17.13.3",
     "jsonwebtoken": "9.0.2",
+    "openai": "^4.63.0",
     "uuid": "10.0.0"
   },
   "devDependencies": {

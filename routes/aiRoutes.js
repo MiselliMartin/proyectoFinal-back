@@ -4,7 +4,7 @@ import { suggestAlternatives } from '../controllers/aiController.js';
 const aiRouter = Router();
 const { getRecommendations } = aiController()
 
-aiRouter.route('/events/:eventId/result/ai')
+aiRouter.route('/events/:eventId/recommendations')
     .get(getRecommendations, suggestAlternatives);
 
 
