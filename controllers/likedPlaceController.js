@@ -21,6 +21,9 @@ export const likedPlaceController = () => {
 
             return response.status(HTTP_STATUS.CREATED).json(likedPlace)
         } catch (error) {
+            if (error.code === 'P2002') {
+                return response.status(HTTP_STATUS.OK).json({ message: "You already liked this movie." });
+              }
             next(error)
         } finally {
             await prisma.$disconnect();
