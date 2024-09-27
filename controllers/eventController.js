@@ -97,7 +97,7 @@ export const eventController = () => {
                             user: true,
                         },
                     },
-                    roomDecision: true,
+                    // roomDecision: true,
                 },
             });
 
@@ -148,21 +148,74 @@ export const eventController = () => {
         }
     };
 
+    // const deleteEvent = async (req, res, next) => {
+    //     const { id } = req.params;
+    //     try {
+    //         await prisma.event.delete({
+    //             where: { id: parseInt(id) },
+    //         });
+
+    //         return res.status(httpStatus.OK).json({ message: "Event deleted successfully" });
+    //     } catch (error) {
+    //         next(error);
+    //     } finally {
+    //         await prisma.$disconnect();
+    //     }
+    // };
+
+
     const deleteEvent = async (req, res, next) => {
         const { id } = req.params;
+        // const userId = req.user.id; // Assuming you have user information in the request
+    
         try {
-            await prisma.event.delete({
-                where: { id: parseInt(id) },
-            });
+            await prisma.$transaction(async (prisma) => {
+                // Check if the user is the creator of the event
+                const event = await prisma.event.findUnique({
+                    where: { id: parseInt(id) },
+                    // select: { userId: true }
+                });
+    
+                if (!event) {
+                    return res.status(httpStatus.NOT_FOUND).json({ message: "Event not found" });
+                }
 
-            return res.status(httpStatus.OK).json({ message: "Event deleted successfully" });
+    
+                // Delete all related records in users_in_event
+                await prisma.userInEvent.deleteMany({
+                    where: { eventId: parseInt(id) }
+                });
+    
+                // Delete all related records in other tables
+                await prisma.usersDislikedMeals.deleteMany({ where: { eventId: parseInt(id) } });
+                await prisma.usersDislikedMovies.deleteMany({ where: { eventId: parseInt(id) } });
+                await prisma.usersDislikedPlaces.deleteMany({ where: { eventId: parseInt(id) } });
+                await prisma.usersLikedMeals.deleteMany({ where: { eventId: parseInt(id) } });
+                await prisma.usersLikedMovies.deleteMany({ where: { eventId: parseInt(id) } });
+                await prisma.usersLikedPlaces.deleteMany({ where: { eventId: parseInt(id) } });
+                await prisma.eventDecisions.deleteMany({ where: { eventId: parseInt(id) } });
+    
+                // Finally, delete the event
+                await prisma.event.delete({
+                    where: { id: parseInt(id) },
+                });
+            });
+    
+            return res.status(httpStatus.OK).json({ message: "Event and related records deleted successfully" });
         } catch (error) {
-            next(error);
+            if (error.code === 'P2025') {
+                return res.status(httpStatus.NOT_FOUND).json({ message: "Event not found" });
+            } else if (error.code === 'P2003') {
+                return res.status(httpStatus.CONFLICT).json({ message: "Cannot delete event due to existing references" });
+            } else {
+                console.error("Error deleting event:", error);
+                return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "An error occurred while deleting the event" });
+            }
         } finally {
             await prisma.$disconnect();
         }
     };
-
+     
     const listEvents = async (req, res, next) => {
         try {
             const events = await prisma.event.findMany({
@@ -244,8 +297,13 @@ export const eventController = () => {
                     eventId: parseInt(eventId),
                 },
                 include: {
-                    user: true,
-                },
+                        user: true,
+                    event: {
+                        include: {
+                            user: true,
+                        },
+                    },
+                }
             });
 
             const responseFormat = {
