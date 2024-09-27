@@ -33,6 +33,18 @@ export const userController = () => {
 
       return res.status(httpStatus.CREATED).json(responseFormat);
     } catch (error) {
+      if (error.code === "P2002") {
+        const field = error.meta.target[0]; // Aquí se obtiene el campo único que generó el conflicto
+        let message = "Ya existe un usuario registrado con ese ";
+        if (field === "email") {
+          message += "email.";
+        } else if (field === "username") {
+          message += "nombre de usuario.";
+        }
+
+        return res.status(400).json({ message });
+      }
+
       next(error);
     } finally {
       await prisma.$disconnect();
