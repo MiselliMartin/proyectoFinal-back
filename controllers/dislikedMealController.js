@@ -21,7 +21,10 @@ export const dislikedMealController = () => {
             })
 
             return response.status(HTTP_STATUS.CREATED).json(dislikedMeal)
-        } catch (error) {
+        } catch (error) {          
+            if (error.code === 'P2002') {
+            return response.status(HTTP_STATUS.OK).json({ message: "You already disliked this meal." });
+          }
             next(error)
         } finally {
             await prisma.$disconnect()
@@ -40,18 +43,18 @@ export const dislikedMealController = () => {
                     mealId: true,
                     userId: true,
                     eventId: true,
-                    meal: {
-                        select: {
-                            name: true
-                        }
-                    }
+                    // meal: {
+                    //     select: {
+                    //         name: true
+                    //     }
+                    // }
                 },
-                user: {
-                    select: {
-                        username: true,
-                        email: true
-                    }
-                }
+                // user: {
+                //     select: {
+                //         username: true,
+                //         email: true
+                //     }
+                // }
             })
             return response.status(HTTP_STATUS.OK).json(dislikedMeals)
         } catch (error) {

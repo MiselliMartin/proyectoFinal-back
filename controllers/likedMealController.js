@@ -127,11 +127,86 @@ export const likedMealController = () => {
         }
     };
     
+    // const getTopLikedMeals = async (req, res, next) => {
+    //     const { params } = req;
+    //     const eventId = Number(params?.eventId);
     
+    //     try {
+    //         const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
+    //         const halfUsers = Math.ceil(totalUsers / 2);
+    
+    //         const likedMeals = await prisma.usersLikedMeals.groupBy({
+    //             by: ['mealId'],
+    //             where: {
+    //                 eventId,
+    //             },
+    //             _count: {
+    //                 userId: true,
+    //             },
+    //             having: {
+    //                 userId: {
+    //                     _count: {
+    //                         gte: halfUsers,
+    //                     },
+    //                 },
+    //             },
+    //             orderBy: {
+    //                 _count: {
+    //                     userId: 'desc',
+    //                 },
+    //             },
+    //             take: 3,
+    //         });
+
+    //         const mealIds = likedMeals.map(meal => meal.mealId);
+    //         const mealDetails = await prisma.meal.findMany({
+    //             where: {
+    //                 id: { in: mealIds },
+    //             },
+    //             select: {
+    //                 id: true,
+    //                 name: true,
+    //                 urlImage: true,
+    //             },
+    //         });
+
+    //         const topMeals = likedMeals.map(meal => {
+    //             const mealDetail = mealDetails.find(detail => detail.id === meal.mealId);
+    //             return {
+    //                 mealId: meal.mealId,
+    //                 title: mealDetail?.name || 'Unknown title',
+    //                 urlImage: mealDetail?.urlImage || 'Unknown image',
+    //                 likes: meal._count.userId,
+    //             };
+    //         });
+
+    //         let resultMeal;
+    //         if (topMeals.length > 0) {
+    //             const maxLikes = topMeals[0].likes;
+    //             const potentialMeals = topMeals.filter(meal => meal.likes === maxLikes);
+
+    //             // Si solo hay una comida con el máximo de likes, esa es la ganadora.
+    //             if (potentialMeals.length === 1) {
+    //                 resultMeal = potentialMeals[0];
+    //             } else {
+    //                 // Si hay un empate, seleccionar una al azar
+    //                 const randomIndex = Math.floor(Math.random() * potentialMeals.length);
+    //                 resultMeal = potentialMeals[randomIndex];
+    //             }
+    //         }
+
+    //         res.json(resultMeal);
+    //     } catch (error) {
+    //         next(error);
+    //     } finally {
+    //         await prisma.$disconnect();
+    //     }
+    // };
 
     return {
         markAsLiked,
         getLikedMeals,
-        getMostLikedMeals
+        getMostLikedMeals,
+        // getTopLikedMeals,
     }
 }

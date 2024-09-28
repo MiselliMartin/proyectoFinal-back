@@ -21,6 +21,9 @@ export const dislikedMovieController = () => {
 
             return response.status(HTTP_STATUS.CREATED).json(dislikedMovie)
         } catch (error) {
+            if (error.code === 'P2002') {
+                return response.status(HTTP_STATUS.OK).json({ message: "You already disliked this movie." });
+              }
             next(error)
         } finally {
             await prisma.$disconnect()
@@ -39,18 +42,18 @@ export const dislikedMovieController = () => {
                     movieId: true,
                     userId: true,
                     eventId: true,
-                    movie: {
-                        select: {
-                            title: true
-                        }
-                    }
+                    // movie: {
+                    //     select: {
+                    //         title: true
+                    //     }
+                    // }
                 },
-                user: {
-                    select: {
-                        username: true,
-                        email: true
-                    }
-                }
+                // user: {
+                //     select: {
+                //         username: true,
+                //         email: true
+                //     }
+                // }
             })
             return response.status(HTTP_STATUS.OK).json(dislikedMovies)
         } catch (error) {

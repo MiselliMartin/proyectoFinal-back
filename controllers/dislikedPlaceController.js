@@ -22,6 +22,9 @@ export const dislikedPlaceController = () => {
             return response.status(HTTP_STATUS.CREATED).json(dislikedPlace)
         } catch (error) {
             next(error)
+            if (error.code === 'P2002') {
+                return response.status(HTTP_STATUS.OK).json({ message: "You already disliked this place." });
+              }
         } finally {
             await prisma.$disconnect()
         }
@@ -39,18 +42,18 @@ export const dislikedPlaceController = () => {
                     placeId: true,
                     userId: true,
                     eventId: true,
-                    place: {
-                        select: {
-                            title: true
-                        }
-                    }
+                    // place: {
+                    //     select: {
+                    //         title: true
+                    //     }
+                    // }
                 },
-                user: {
-                    select: {
-                        username: true,
-                        email: true
-                    }
-                }
+                // user: {
+                //     select: {
+                //         username: true,
+                //         email: true
+                //     }
+                // }
             })
             return response.status(HTTP_STATUS.OK).json(dislikedPlaces)
         } catch (error) {
