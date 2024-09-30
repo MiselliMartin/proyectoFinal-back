@@ -31,12 +31,12 @@ export const dislikedPlaceController = () => {
     }
 
     const getDislikedPlaces = async (request, response, next) => {
-        const { query } = request
-        const userId = Number(query?.id)
+        const { query, params } = request
+        const eventId = Number(params?.eventId)
         try {
             const dislikedPlaces = await prisma.usersDislikedPlaces.findMany({
                 where: {
-                    userId
+                    eventId,
                 },
                 select: {
                     placeId: true,

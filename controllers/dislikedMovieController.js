@@ -31,12 +31,12 @@ export const dislikedMovieController = () => {
     }
 
     const getDislikedMovies = async (request, response, next) => {
-        const { query } = request
         const userId = Number(query?.id)
+        const eventId = Number(params?.eventId)
         try {
             const dislikedMovies = await prisma.usersDislikedMovies.findMany({
                 where: {
-                    userId
+                    eventId,
                 },
                 select: {
                     movieId: true,

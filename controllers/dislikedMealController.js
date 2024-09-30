@@ -32,12 +32,12 @@ export const dislikedMealController = () => {
     }
 
     const getDislikedMeals = async (request, response, next) => {
-        const { query } = request
-        const userId = Number(query?.id)
+        const { query, params } = request
+        const eventId = Number(params?.eventId)
         try {
             const dislikedMeals = await prisma.usersDislikedMeals.findMany({
                 where: {
-                    userId
+                    eventId,
                 },
                 select: {
                     mealId: true,
