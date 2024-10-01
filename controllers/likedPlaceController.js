@@ -70,8 +70,6 @@ export const likedPlaceController = () => {
         const eventId = Number(params?.eventId);
     
         try {
-            const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
-            const halfUsers = Math.ceil(totalUsers / 2);
     
             const likedPlaces = await prisma.usersLikedPlaces.groupBy({
                 by: ['placeId'],
@@ -80,13 +78,6 @@ export const likedPlaceController = () => {
                 },
                 _count: {
                     userId: true,
-                },
-                having: {
-                    userId: {
-                        _count: {
-                            gte: halfUsers,
-                        },
-                    },
                 },
                 orderBy: {
                     _count: {

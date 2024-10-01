@@ -69,8 +69,6 @@ export const likedMealController = () => {
         const eventId = Number(params?.eventId);
     
         try {
-            const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
-            const halfUsers = Math.ceil(totalUsers / 2);
     
             const likedMeals = await prisma.usersLikedMeals.groupBy({
                 by: ['mealId'],
@@ -79,13 +77,6 @@ export const likedMealController = () => {
                 },
                 _count: {
                     userId: true,
-                },
-                having: {
-                    userId: {
-                        _count: {
-                            gte: halfUsers,
-                        },
-                    },
                 },
                 orderBy: {
                     _count: {

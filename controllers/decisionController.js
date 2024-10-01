@@ -311,14 +311,14 @@ export const decisionController = () => {
 
   const getTopLikedMeal = async (eventId) => {
     try {
-      const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
-      const halfUsers = Math.ceil(totalUsers / 2);
+      // const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
+      // const halfUsers = Math.ceil(totalUsers / 2);
 
       const likedMeals = await prisma.usersLikedMeals.groupBy({
         by: ["mealId"],
         where: { eventId },
         _count: { userId: true },
-        having: { userId: { _count: { gte: halfUsers } } },
+        // having: { userId: { _count: { gte: halfUsers } } },
         orderBy: { _count: { userId: "desc" } },
         take: 3,
       });

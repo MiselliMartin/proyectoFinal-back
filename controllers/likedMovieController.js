@@ -76,9 +76,7 @@ export const likedMovieController = () => {
         const eventId = Number(params?.eventId);
     
         try {
-            const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
-            const halfUsers = Math.ceil(totalUsers / 2);
-    
+
             const likedMovies = await prisma.usersLikedMovies.groupBy({
                 by: ['movieId'],
                 where: {
@@ -87,13 +85,7 @@ export const likedMovieController = () => {
                 _count: {
                     userId: true,
                 },
-                having: {
-                    userId: {
-                        _count: {
-                            gte: halfUsers,
-                        },
-                    },
-                },
+
                 orderBy: {
                     _count: {
                         userId: 'desc', // Ordenamos por el número de likes (de mayor a menor)

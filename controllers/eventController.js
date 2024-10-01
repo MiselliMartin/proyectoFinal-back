@@ -76,6 +76,9 @@ export const eventController = () => {
 
             return res.status(200).json(responseFormat);
         } catch (error) {
+            if (error.code === 'P2002') {
+                return res.status(409).json({ message: 'Ya estás unido a este evento.' });
+            }
             next(error);
         } finally {
             await prisma.$disconnect();
@@ -195,6 +198,23 @@ export const eventController = () => {
                 await prisma.usersLikedPlaces.deleteMany({ where: { eventId: parseInt(id) } });
                 await prisma.eventDecisions.deleteMany({ where: { eventId: parseInt(id) } });
     
+                // await prisma.user.updateMany({
+                //     where: { events: { has: parseInt(id) } }, // Solo actualizar usuarios que tienen este evento en su array
+                //     data: {
+                //         events: {
+                //             set: {
+                //                 // Remover el ID del evento que se está eliminando
+                //                 // Esto asume que el campo 'events' es un array de IDs de eventos
+                //                 events: {
+                //                     // Prisma no soporta directamente eliminar elementos de un array
+                //                     // por lo que se debe realizar de forma manual en la lógica.
+                //                     set: prisma.raw(`ARRAY(SELECT unnest(events) WHERE unnest(events) != ${parseInt(id)})`)
+                //                 }
+                //             }
+                //         },
+                //     },
+                // });
+                
                 // Finally, delete the event
                 await prisma.event.delete({
                     where: { id: parseInt(id) },
