@@ -164,7 +164,7 @@ model UsersDislikedMovies {
   movie     Movie    @relation(fields: [movieId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
-  @@unique([movieId, userId])
+  @@unique([movieId, userId, eventId])
   @@map("users_disliked_movies")
 }
 
@@ -179,7 +179,7 @@ model UsersDislikedMeals {
   meal      Meal     @relation(fields: [mealId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
-  @@unique([mealId, userId])
+  @@unique([mealId, userId, eventId])
   @@map("users_disliked_meals")
 }
 
@@ -194,7 +194,7 @@ model UsersDislikedPlaces {
   place     Place    @relation(fields: [placeId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
-  @@unique([placeId, userId])
+  @@unique([placeId, userId, eventId])
   @@map("users_disliked_places")
 }
 
