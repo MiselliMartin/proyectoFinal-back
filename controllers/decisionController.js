@@ -195,14 +195,14 @@ const prisma = new PrismaClient();
 export const decisionController = () => {
   const getTopLikedMovie = async (eventId) => {
     try {
-      const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
-      const halfUsers = Math.ceil(totalUsers / 2);
+      // const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
+      // const halfUsers = Math.ceil(totalUsers / 2);
 
       const likedMovies = await prisma.usersLikedMovies.groupBy({
         by: ["movieId"],
         where: { eventId },
         _count: { userId: true },
-        having: { userId: { _count: { gte: halfUsers } } },
+        // having: { userId: { _count: { gte: halfUsers } } },
         orderBy: { _count: { userId: "desc" } },
         take: 3,
       });
@@ -253,14 +253,14 @@ export const decisionController = () => {
 
   const getTopLikedPlace = async (eventId) => {
     try {
-      const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
-      const halfUsers = Math.ceil(totalUsers / 2);
+      // const totalUsers = await prisma.userInEvent.count({ where: { eventId } });
+      // const halfUsers = Math.ceil(totalUsers / 2);
 
       const likedPlaces = await prisma.usersLikedPlaces.groupBy({
         by: ["placeId"],
         where: { eventId },
         _count: { userId: true },
-        having: { userId: { _count: { gte: halfUsers } } },
+        // having: { userId: { _count: { gte: halfUsers } } },
         orderBy: { _count: { userId: "desc" } },
         take: 3,
       });
