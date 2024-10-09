@@ -442,10 +442,20 @@ export const decisionController = () => {
           },
         },
       });
+      const hasMovieResults = await prisma.usersLikedMovies.findFirst({ where: { eventId } });
+      const hasPlaceResults = await prisma.usersLikedPlaces.findFirst({ where: { eventId } });
+      const hasMealResults = await prisma.usersLikedMeals.findFirst({ where: { eventId } });
+
+      const hasResults = {
+        movies: !!hasMovieResults,
+        places: !!hasPlaceResults,
+        meals: !!hasMealResults
+      };
 
       if (!decision) {
         return res.status(httpStatus.NOT_FOUND).json({
           message: "No decision found for this event",
+          hasResults
         });
       }
 
@@ -470,6 +480,7 @@ export const decisionController = () => {
       const responseFormat = {
         data: formattedDecision,
         message: "Decision retrieved successfully",
+        hasResults
       };
 
       return res.status(httpStatus.OK).json(responseFormat);
