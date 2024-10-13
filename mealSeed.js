@@ -70,7 +70,7 @@ const main = async () => {
   },
   {
     name: "Pasta con salsa bolognesa ",
-    urlImage: "https://plannerbyddy.s3.us-east-2.amazonaws.com/mealsoptimizadas/Arroz-con-pollo.webp",
+    urlImage: "https://plannerbyddy.s3.us-east-2.amazonaws.com/mealsoptimizadas/pastabolognesa.webp",
   },
   {
     name: "Cordero al horno con papas al romero",
@@ -114,15 +114,15 @@ const main = async () => {
   },
   {
     name: "Milanesa con ensalada",
-    urlImage: "https://plannerbyddy.s3.us-east-2.amazonaws.com/mealsoptimizadas/Arroz-con-pollo.webp",
+    urlImage: "https://plannerbyddy.s3.us-east-2.amazonaws.com/mealsoptimizadas/milaconensaladadepollo.webp",
   },
   {
     name: "Pasta primavera con verduras",
     urlImage: "https://plannerbyddy.s3.us-east-2.amazonaws.com/mealsoptimizadas/pasta.webp",
   },
   {
-    name: "Milanesa de pollo con ensalada",
-    urlImage: "https://plannerbyddy.s3.us-east-2.amazonaws.com/mealsoptimizadas/milaconensaladadepollo.webp",
+    name: "Milanesa con fritas",
+    urlImage: "https://plannerbyddy.s3.us-east-2.amazonaws.com/mealsoptimizadas/milanesafrita.webp",
   },
   {
     name: "Ceviche con Palta",
